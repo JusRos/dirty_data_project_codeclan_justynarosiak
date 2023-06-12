@@ -4,17 +4,51 @@ output: html_notebook
 ---
 
 ```{r}
+
+# packages required:
+
 library(tidyverse)
 library(here)
+
+```
+
+
+```{r}
+# read in data
+decathlon <- read_csv("../clean_data/decathlon_clean.csv")
 ```
 
 Who had the longest long jump seen in the data?
 
 ```{r}
+longest_jump <- decathlon %>% 
+  select(names, long_jump) %>% 
+  arrange(desc(long_jump)) %>% 
+  head()
+longest_jump
 
+# Clay had the longest jump (7.96).
 ```
 
 What was the average 100m time in each competition?
+```{r}
+mean_100m_d <- decathlon %>% 
+  mutate(mean_100m_d = mean()
+```
+
+
+
 Who had the highest total points across both competitions?
+
+```{r}
+decastar <- decathlon %>%
+  select(names, points, competition_name) %>% 
+  filter(competition_name == "Decastar") %>%
+  group_by(names)
+  
+  
+  
+```
+
 What was the shot-put scores for the top three competitors in each competition?
 What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
