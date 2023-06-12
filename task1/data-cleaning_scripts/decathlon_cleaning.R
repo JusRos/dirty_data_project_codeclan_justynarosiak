@@ -33,13 +33,11 @@ names(decathlon)
 
 #renamed columns
 
-decathlon <- rename(decathlon, "names" = "names", "100m_run" = "x100m", "long_jump" = "long_jump", 
-       "shot_put" ="shot_put", "high_jump" = "high_jump", "400m_run" = "x400m",
-        "hurdle_110m" = "x110m_hurdle","dicus" = "discus", "pole_vault" = "pole_vault",
-       "javeline" = "javeline", "1500_run" = "x1500m", "rank" = "rank", "points" = "points",
-                         "competition_name" = "competition")
+decathlon <- rename(decathlon, "names" = "names", "short_run" = "x100m", "long_jump" = "long_jump", 
+"shot_put" ="shot_put", "high_jump" = "high_jump", "long_run" = "x400m",
+"hurdle_run" = "x110m_hurdle","dicus" = "discus", "pole_vault" = "pole_vault","javeline" = "javeline", "1500_run" = "x1500m", "rank" = "rank", "points" = "points","competition_name" = "competition")
 
-names(decathlon)
+  
 
 glimpse(decathlon)
 
@@ -47,12 +45,14 @@ glimpse(decathlon)
 decathlon <- decathlon %>% 
   mutate(names = str_to_title(names))
 
+glimpse(decathlon)
 
-# check for any NAs and how many tehre are across the entire df
+# check for any NAs and how many there are across the entire df
 missing_values <- sum(is.na(decathlon))
 
-# write a file as a .csv
 
+# write a file as a .csv
+ 
 write_csv(decathlon, file = "clean_data/decathlon_clean.csv")
 
   

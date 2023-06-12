@@ -32,23 +32,51 @@ longest_jump
 
 What was the average 100m time in each competition?
 ```{r}
-mean_100m_d <- decathlon %>% 
-  mutate(mean_100m_d = mean()
-```
+avg_100m <- decathlon %>% 
+  select(short_run, competition_name) %>% 
+  group_by(competition_name) %>% 
+  summarise(avg_short_run = mean(short_run))
 
+avg_100m
+```
 
 
 Who had the highest total points across both competitions?
 
 ```{r}
-decastar <- decathlon %>%
+highest_total_score <- decathlon %>%
   select(names, points, competition_name) %>% 
-  filter(competition_name == "Decastar") %>%
-  group_by(names)
+  group_by(names) %>% 
+  summarise(final_score = sum(points)) %>% 
+  arrange(desc(final_score)) %>% 
+  head(n = 1)
   
-  
+highest_total_score
   
 ```
 
 What was the shot-put scores for the top three competitors in each competition?
+
+```{r}
+shot_put_best <- decathlon %>% 
+  select(names, shot_put, competition_name) %>% 
+  group_by(competition_name)%>% 
+  arrange(desc(shot_put)) %>%
+  slice_max(shot_put, n = 3)
+ 
+shot_put_best
+```
+
 What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
+
+
+```{r}
+
+avg_points_longrun <- decathlon %>% 
+  select(long_run, points) %>% 
+  mutate(above_50 = if_else(long_run > 50, TRUE, FALSE)) %>% 
+  group_by(above_50) %>% 
+  summarise(average_points = mean(points))
+
+avg_points_longrun
+```
