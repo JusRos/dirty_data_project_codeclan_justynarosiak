@@ -1,0 +1,110 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+load libraries
+```{r}
+library(tidyverse)
+library(skimr)
+library(here)
+```
+
+
+Read in csv
+```{r}
+here::here()
+candies <- read_csv(here("clean_data/candies.csv"))
+```
+ 
+1. What is the total number of candy ratings given across the three years. (Number of candy ratings, not the number of raters. Don’t count missing values)
+
+```{r}
+candies %>% 
+  select(-c(year, age, going_out, country, gender)) %>% 
+  summarise(across(.fns = ~sum(!is.na(.)))) %>% 
+  summarise(rowSums(.))
+  
+```
+
+ANSWER: 624769 have been given over 3 years.
+
+2.  What was the average age of people who are going out trick or treating?
+
+```{r}
+
+going_out <- candies %>% 
+  select(going_out, age) %>% 
+  drop_na(age) %>% 
+  filter(going_out == "Yes") %>% 
+  summarise(going_out_avg = round(mean(age)))
+
+going_out 
+
+```
+ANSWER: Average age for those who were going out to trick or treat was around 35.
+
+3. What was the average age of people who are not going trick or treating?
+```{r}
+
+not_going_out <- candies %>% 
+  select(going_out, age) %>% 
+  drop_na(age) %>% 
+  filter(going_out == "No") %>% 
+  summarise(not_going_out_avg = round(mean(age)))
+
+not_going_out  
+```
+ANSWER: Average age for those who were not going out to trick or treat was around 40.
+
+
+4. For each of joy, despair and meh, which candy bar received the most of these ratings?
+```{r}
+
+candy_bars <- candies %>% 
+  select(x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix)
+    
+  
+
+joy_rating <- colSums(candy_bars == "JOY", na.rm = TRUE) %>% 
+  sort(decreasing = TRUE)
+
+joy_rating
+
+
+despair_rating <- colSums(candy_bars == "DESPAIR", na.rm = TRUE) %>% 
+  sort(decreasing = TRUE)
+
+despair_rating
+
+
+meh_rating <- colSums(candy_bars == "MEH", na.rm = TRUE) %>% 
+  sort(decreasing = TRUE)
+
+meh_rating
+
+
+```
+
+ANSWER:
+The most 'joy' ratings received 'Kit-Kat bar'.
+The most 'despair' ratings received 'chick o stick' bar.
+The most 'meh' ratings received '100_grand_bar' bar.
+
+5. How many people rated Starburst as despair?
+```{r}
+starburst_despair <- candies %>% 
+  select(starburst) %>%
+  group_by(starburst) %>% 
+  filter(starburst == "DESPAIR") %>% 
+  count()
+
+starburst_despair
+```
+ANSWER: 1990 people rated Starburst as "despair"
+
+7. For the next three questions, count despair as -1, joy as +1, and meh as 0.
+
+What was the most popular candy bar by this rating system for each gender in the dataset ?
+What was the most popular candy bar in each year?
+What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
