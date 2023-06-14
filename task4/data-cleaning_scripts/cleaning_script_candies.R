@@ -6,37 +6,36 @@ library(skimr)
 library(janitor)
 library(here)
 library(readxl)
+library(stringr)
 
+here::here
 ## 1.read in data
 # 1.1
-candy_2015 <- read_xlsx("../task4/raw_data/boing-boing-candy-2015.xlsx")
+candy_2015 <- read_xlsx(here("..//task4/raw_data/boing-boing-candy-2015.xlsx"))
 
 # 1.2
-candy_2016 <- read_xlsx("raw_data/boing-boing-candy-2016.xlsx")
+candy_2016 <- read_xlsx(here("..//task4/raw_data/boing-boing-candy-2016.xlsx"))
 
 # 1.3
-candy_2017 <- read_xlsx("raw_data/boing-boing-candy-2017.xlsx")
+candy_2017 <- read_xlsx(here("../task4/raw_data/boing-boing-candy-2017.xlsx"))
 
 ## 2. General exploration of a data set for each year
 
 # 2.1 
 skim(candy_2015)
 colnames(candy_2015)
-view(candy_2015)
 dim(candy_2015)
 skim(candy_2015)
 
 # 2.2
 skim(candy_2016)
 colnames(candy_2016)
-view(candy_2016)
 dim(candy_2016)
 skim(candy_2016)
 
 # 2.3
 skim(candy_2017)
 colnames(candy_2017)
-view(candy_2017)
 dim(candy_2017)
 skim(candy_2017)
 
@@ -93,7 +92,7 @@ irrelevant_col_2016 <- c("the_rest", "which_state_province_county_do_you_live_in
 drop_2016 <- c(not_candy_2016, irrelevant_col_2016)
 
 # 5.3
-not_candy_2017 <- c("boxo_raisins","broken_glow_stick","cash_or_other_forms_of_legal_tender", "chardonnay","creepy_religious_comics_chick_tracts","generic_brand_acetaminophen","glow_sticks", "healthy_fruit","hugs_actual_physical_hugs", "person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes","spotted_dick", "trail_mix","vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein","vicodin", "white_bread","whole_wheat_anything", "bonkers_the_board_game")
+not_candy_2017 <- c("boxo_raisins","broken_glow_stick","cash_or_other_forms_of_legal_tender", "chardonnay","creepy_religious_comics_chick_tracts","generic_brand_acetaminophen","glow_sticks", "healthy_fruit","hugs_actual_physical_hugs", "kale_smoothie", "person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes","spotted_dick", "trail_mix","vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein","vicodin", "white_bread","whole_wheat_anything", "bonkers_the_board_game")
   
 irrelevant_col_2017 <- c("id","state_province_county_etc","joy_other","despair_other","other_comments","dress","x114","day","media_daily_dish","media_science","media_espn","media_yahoo","coordinates_x_y", "abstained_from_m_ming"
 )
@@ -114,36 +113,154 @@ candy_2017 <- candy_2017[,!names(candy_2017) %in% drop_2017]
 
 
 ## 7. ensure each data set contains year, age, going_out, country, gender 
+# and other column names are likely to match
 # 7.1
-view(candy_2015)
+
 candy_2015 <- candy_2015 %>% 
-  rename("age" = "how_old_are_you", 
-         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself")
+  rename("age" = "how_old_are_you",
+         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself",
+         "anonymous_brown_globs" =
+           "anonymous_brown_globs_that_come_in_black_and_orange_wrappers")
+         
+
 # 7.2
-view(candy_2016)
+
 candy_2016 <- candy_2016 %>% 
   rename("age" = "how_old_are_you",
          "gender" = "your_gender",
-         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself","country" = "which_country_do_you_live_in")
+         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself","country" = "which_country_do_you_live_in",
+         "anonymous_brown_globs" =
+           "anonymous_brown_globs_that_come_in_black_and_orange_wrappers")
+
 # 7.3 all required columns already there
-view(candy_2017)
+candy_2017 <- candy_2017 %>% 
+  rename("anonymous_brown_globs" =
+  "anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes")
 
 ## 8. join all three data sets into one called 'candies' and explore further.
+# 8.1.
 
 joined_two <- full_join(candy_2015, candy_2016)
 candies <- full_join(joined_two, candy_2017)
+# 8.2 shorten column names to 25 characters
 
-view(candies)
+short_col_names <- str_sub(colnames(candies),start = 1, end = 20)
 
-glimpse(candies)
+colnames(candies) <- short_col_names
 
-## 9. change age column to numeric
+# 9. remove values no longer needed in the script
+
+rm(drop_2015, drop_2016, drop_2017)
+rm(irrelevant_col_2015, irrelevant_col_2016,irrelevant_col_2017)
+rm(not_candy_2015,not_candy_2016, not_candy_2017)
+
+## 10. change age column to numeric and ensure that data provided falls 
+# between certain values
 
 candies <- candies %>% 
-  mutate(age = as.integer(age))
-## tidy up a 'country' column
-candies %>% 
-  select(country)
+  mutate(age = as.integer(age),
+         age = if_else(age > 0 & age <= 123, age , NA))
+
+
+
+## 11. tidy up a 'country' column
+# 11.1 check what distinctive country names there are
+
+countries_distinct <- candies %>% 
+  select(country) %>% 
+  distinct(country) %>% 
+  arrange(country)
+
+
+# 10.2 change everything to sentence case, remove any punctuation, 
+#  replace countries that have a number as a value to 'NA' and then replacing all 
+# potential entries that suggest UK as a country with 'UK' and 'Canada'.
+
+candies <- candies %>% 
+  mutate(country = gsub("[[:punct:]]", "", country),   # remove any punctuation
+       country = str_to_sentence(country),
+       country = str_replace_all(country,"[0-9]+", "US"), # change numbers to US based on info from a 'state_province' column. 
+       country = case_when(country == "United kingdom" ~ "The UK",
+                           country == "United kindom"  ~ "The UK",
+                           country == "Uk"             ~ "The UK",
+                           country == "England"        ~ "The UK",
+                           country == "Endland"        ~ "The UK",
+                           country == "Scotland"       ~ "The UK",
+                           country == "Ud"             ~ NA,
+                           country == "Unhinged states"~ NA,
+                           country == "Can"            ~ "Canada",
+                           country == "Canae"          ~ "Canada",
+                           country == "Soviet canuckistan" ~ "Canada",
+                           TRUE                        ~ country))
+               
+# 10.3 tidy up countries that seem to be 'USA'
+
+candies <- candies %>% 
+  mutate(country = str_replace(country, "^U[a-z ]+[a-z]+", "US"),
+         country = case_when(
+            country == "Us" ~ "US",
+            country == "The united states" ~ "US",
+            country == "The united states of america" ~ "US",
+            country == "The yoo ess of aaayyyyyy" ~ "US",
+            country == "Pittsburgh" ~ "US",
+            country == "North carolina" ~ "US",
+            country == "New jersey" ~ "US",
+            country == "New york" ~ "US",
+            country == "I pretend to be from canada but i am really from the united states"   ~ "US",
+            country == "California" ~ "US",
+            country == "Alaska"  ~ "US",
+            country == "America" ~ "US",
+            country == "I don't know anymore" ~ "US",
+            country == "The best one  usa" ~ "US",
+            country == "Trumpistan" ~ "US",
+            country == "Narnia" ~ "US",
+            country == "Ahemamerca" ~ "US",
+            country == "A" ~ "US",
+            country == "The best one  usa" ~ "US",
+            country == "Murica" ~ "US",  
+            country == "Murrika" ~ "US",
+            country == "Merica" ~ "US",
+            country == "Gods country" ~ "US",
+            country == "N america" ~ "US",
+            country == "Subcanadian north america merica" ~ "US",
+            TRUE     ~ country
+))
+# 10.4 observations that do not allow to identify a specific country are being changed to 'NA'.
+
+
+candies <- candies %>% 
+  mutate(country = case_when(country == "Atlantis" ~ NA,
+       country == "Denial" ~ NA,
+       country == "Fear and loathing" ~ NA,
+       country == "Insanity lately" ~ NA,
+       country == "One of the best ones" ~ NA,
+       country == "See above" ~ NA,
+       country == "Somewhere" ~ NA,
+       country == "Subscribe to dmUSuzUS on youtube" ~ NA,
+       country == "The republic of cascadia" ~ NA, # could be either Canada or US
+       country == "Cascadia" ~ NA,
+       country == "There isnt one for old men" ~ NA,
+       country == "This one" ~ NA,
+       country == "Earth" ~ NA,
+       country == "A tropical island south of the equator" ~ NA,
+       country == "I dont know anymore" ~ NA,
+       country == "Not the usa or canada" ~ NA,
+       country == "Eua" ~ NA,
+       country == "Europe" ~ NA,
+       country == "Neverland" ~ NA,
+       TRUE     ~ country
+   ))	
+
+
+# 10.5 change all character 'NA's to logical
+
+candies <- candies %>% 
+  mutate(country = case_when(country == "NA" ~ NA,
+                             TRUE     ~ country))
+                         
+ # 11  write candies.CSV
+
+write_csv(candies, file = (here("../task4/clean_data/candies.csv")))
 
 
 
