@@ -13,8 +13,8 @@ library(here)
 
 Read in csv
 ```{r}
-here::here()
-candies <- read_csv(here("clean_data/candies.csv"))
+here::here
+candies_long <- read_csv(here("clean_data/candies_long.csv  "))
 ```
  
 1. What is the total number of candy ratings given across the three years. (Number of candy ratings, not the number of raters. Don’t count missing values)
@@ -249,10 +249,11 @@ Canada_popular <- candies_numeric %>% select(country, candies_rating_num, candie
 
 
 ```
+
 9.4  Snickers was preferred in countries other than Us, Canada and UK.
 
 ```{r}
-country <- c(candies_long$country)
+
 
 Other_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
   filter(country != "Canada") %>% 

@@ -251,9 +251,6 @@ candies <- candies %>%
        TRUE     ~ country
    ))	
 
-candies <- candies %>% 
-  mutate(country = case_when(country != ("Canada" & "The UK" & "US" & NA) ~ "Other",
-                             TRUE ~ country))
 # 10.5 change all character 'NA's to logical
 
 candies <- candies %>% 
@@ -275,6 +272,7 @@ candies_long <- candies %>%
                values_to = "candies_rating")
 
 # 11.3 write a new csv into a clean data folder called 'candies_long.'
-write_csv(candies_long, file =(here("clean_data/candies_long.csv")))
+
+write_csv(candies_long, file =(here("..//clean_data/candies_long.csv")))
 
 
