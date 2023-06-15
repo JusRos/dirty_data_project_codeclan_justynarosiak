@@ -66,6 +66,7 @@ candy_2017 <- candy_2017 %>%
 # 4.3.1 remove 'q1:_' from each column name
 colnames(candy_2017) = str_remove(names(candy_2017), "^[a-z0-9]+[_]")
 # 4.3.2 clean names again
+
 candy_2017 <- clean_names(candy_2017) 
 
 
@@ -112,8 +113,7 @@ candy_2017 <- candy_2017[,!names(candy_2017) %in% drop_2017]
 
 
 
-## 7. ensure each data set contains year, age, going_out, country, gender 
-# and other column names are likely to match
+## 7. ensure each data set contains year, age, going_out, country, gender and other column names are likely to match
 # 7.1
 
 candy_2015 <- candy_2015 %>% 
@@ -272,7 +272,7 @@ candies_long <- candies %>%
                values_to = "candies_rating")
 
 # 11.3 write a new csv into a clean data folder called 'candies_long.'
-
-write_csv(candies_long, file =(here("..//clean_data/candies_long.csv")))
+here::here
+write_csv(candies_long, file = (here("clean_data/candies_long.csv")))
 
 

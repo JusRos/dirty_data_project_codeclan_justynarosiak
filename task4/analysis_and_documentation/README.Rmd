@@ -1,0 +1,181 @@
+---
+title: "Candies.README"
+author: "J.Rosiak"
+date: "2023-06-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## *TITLE: Candies*
+
+The purpose of this project was to analyse some data on preferred and less preferred candies collected during Haloween trick or treating on three consecutive years: 2015 - 2017.
+
+## *Project description*
+
+There were three data sets with information from three years of Haloweeen Trick or Treating. The first part of the project involved preparing data for further analysis by transorming raw data into  clean file ready for further analysis.
+
+The second part of the project involved using R to answer some questions related to candy ratings and people preferences about sweets collected depending on the year, country they live in and gender.
+
+## *Software requirements*
+
+Cleaning tasks and analysis were performed using RStudio. 
+
+The following libraries were used:
+
+* library(tidyverse)
+
+* library(skimr)
+
+* library(janitor)
+
+* library(here)
+
+* library(readxl)
+
+* library(stringr)used were: were performed 
+
+
+## *Assumptions*
+
+For the purpose of the project I have made assumption on what candy is and used the definition offered by Collins Dictionary:
+'candy is a sweet food, usually in small pieces or bars, made mainly from sugar or syrup, with flavoring, fruit, chocolate, nuts, etc. added.' I have excluded cakes from it.
+
+I have also made an assumption that a candy bar 'is any form of confectionery in a solid usually rectangular block, especially one made with chocolate' - again following the definition offered by Collins Dictionary.
+
+## *Data cleaning*
+Data cleaning script is saved in the data_cleaning_scripts folder and is called cleaning_script_candies.R. Once the data has been read in I assigned each data set to a separate object.
+
+**At first I worked with all three data sets simultaneously.**
+
+1. I cleaned the names of all the columns.
+
+2. Separated timestamp column in 2015 and 2016 data sets to create a year column in the final data set. I have also added year column to 2017 data set.
+
+3. The next step involved identifying columns I wanted to keep. It involved dropping columns that seemed to be completely irrelevant and the ones that were not candy. All these were done for each data set separately.
+
+4. I tidied up column names further to make sure that each data set contains year, age, going_out, country, gender columns and the columns with names of the same sweets have the same names across all three data sets.
+
+**Finally I joined all three sets together.** 
+
+1. I shortened columns names to 20 characters only.
+
+2. Then changed age column to numeric and ensured that data provided falls between 0 and 123.
+
+3. The next step was very lengthy as involved tidying up country column. It involved a mixture of using Regex and 'hard coding'. There was lots of variations of spelling USA and on many ocassions I also had to refer back to state province column to confirm what country should be entered.
+
+When I was unable to identify a single country I changed country field to NA. It is also worth mentioning that the data set from 2015 has not included the country field at all.
+
+4. I changed the format of a data set to longer by using pivot_longer().
+
+5. Finally all the cleaned data has been saved in the file called candies_long.csv.
+
+
+## *Analysis*
+
+In this part of the project I also used RStudio and the following libraries:
+* library(tidyverse)
+
+* library(skimr)
+
+* library(here)
+
+During analysis process I tried to answer the following questions:
+
+**1. What is the total number of candy ratings given across the three years.**
+
+There have been given 623053 candy ratings over 3 years.
+
+
+**2. What was the average age of people who are going out trick or treating?**
+
+Average age for those who were going out to trick or treat was around 35.
+
+
+**3. What was the average age of people who are not going trick or treating?**
+
+Average age for those who were not going out to trick or treat was around 39.
+
+
+**4. For each of joy, despair and meh, which candy bar received the most of these ratings?**
+
+*For the purpose of the analysis the following candies are considered candy bars:*
+
+* x100_grand_bar,
+
+* reggie_jackson_bar,
+
+* hershey_s_milk_choco,
+
+* mr_goodbar,
+
+* caramellos,
+
+* chick_o_sticks_we_do,
+
+* coffee_crisp,
+
+* three_musketeers,
+
+* hersheys_dark_chocol,
+
+* nestle_crunch,
+
+* whatchamacallit_bars,
+
+* milky_way,
+
+* heath_bar,
+
+* kinder_happy_hippo,
+
+* butterfinger,
+
+* kit_kat,
+
+* snickers,
+
+* twix
+
+
+The most 'joy' ratings received 'Kit-Kat bar'.
+
+The most 'despair' ratings received 'Chick o stick' bar.
+
+The most 'meh' ratings received '100_grand_bar' bar.
+
+
+**5. How many people rated Starburst as despair?**
+
+There were 1990 people, who rated Starburst as "despair"
+
+
+
+*For the next three questions, I was asked to count despair as -1, joy as +1, and meh as 0.*
+
+**6. What was the most popular candy bar by this rating system for each gender in the data set ?**
+
+Females preferred twix.
+
+Males preferred Kit Kats.
+
+**7. What was the most popular candy bar in each year?**
+The most popular candy bar for each year was Kit Kat.
+
+
+**8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?**
+
+The most popular candy bar in US and Canada was Kit Kat.
+
+The most popular candy bar in the UK were Milky Way and Twix. 
+
+Snickers was preferred in countries other than Us, Canada and UK.
+
+
+
+
+
+
+

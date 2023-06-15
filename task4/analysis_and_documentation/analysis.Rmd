@@ -59,11 +59,10 @@ not_going_out
 ```
 
 
-
 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
 
 For the purpose of the analysis the following candies are considered candy bars:
-x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix)
+x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix
 
 4.1.The most 'joy' ratings received 'Kit-Kat bar'.
 
@@ -129,12 +128,8 @@ starburst_despair
 
 
 6. For the next three questions, count despair as -1, joy as +1, and meh as 0.
-for every pattern
 
 
-```{r}
-candies_long <- read_csv(here("clean_data/candies_long.csv"))
-```
 ```{r}
 
 candies_numeric <- candies_long %>% mutate(candies_rating_num = case_when(

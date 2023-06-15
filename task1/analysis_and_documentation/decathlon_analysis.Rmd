@@ -31,6 +31,7 @@ longest_jump
 ```
 
 What was the average 100m time in each competition?
+
 ```{r}
 avg_100m <- decathlon %>% 
   select(short_run, competition_name) %>% 

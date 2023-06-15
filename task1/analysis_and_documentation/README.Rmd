@@ -1,0 +1,140 @@
+---
+title: "Decathlon"
+author: "J.Rosiak"
+date: "2023-06-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## *DECATHLON Project*
+
+This project involved preparing decathlon data for further analysis and the analysis themselves using RStudio.
+
+## *Overview*
+
+Decathlon data focused on two main competitions - Olympic and Decastar and included the names of different sportsmen and how they performed in various competitions.
+
+## *Tidying Up*
+
+The following libraries have been used:
+
+* library(tidyverse)
+
+* library(janitor)
+
+* library(here)
+
+
+I have noticed that there were row names, so converted them into names column and reassigned to decathlon
+```{r}
+
+rownames_to_column(decathlon, var = " ")
+
+has_rownames(decathlon)
+
+decathlon <- rownames_to_column(decathlon, var = "names") %>% as_tibble()
+```
+
+Then cleaned the names using a janitor package and renamed columns
+
+```{r}
+decathlon <- rename(decathlon, "names" = "names", "short_run" = "x100m", "long_jump" = "long_jump", 
+"shot_put" ="shot_put", "high_jump" = "high_jump", "long_run" = "x400m",
+"hurdle_run" = "x110m_hurdle","dicus" = "discus", "pole_vault" = "pole_vault","javeline" = "javeline", "1500_run" = "x1500m", "rank" = "rank", "points" = "points","competition_name" = "competition")
+```
+
+Afterwards I have checked how many missing values were in a data set
+
+```{r}
+missing_values <- sum(is.na(decathlon))
+
+```
+
+Once I was happy with the data I saved it into a csv data file 'decathlon_clean.csv'.
+
+As the data set looked small I have decided to keep it in the wide format as it was more pleasing to an eye.
+
+
+## *Analysis*
+
+Using RStudio and the following libraries:
+
+* library(tidyverse)
+
+* library(here)
+
+### I have focused on answering the following questions:
+
+**1. Who had the longest long jump seen in the data?**
+
+   Clay had the longest jump (7.96).
+   
+```{r}
+longest_jump <- decathlon %>% 
+  select(names, long_jump) %>% 
+  arrange(desc(long_jump)) %>% 
+  head()
+
+```
+
+
+**2. What was the average 100m time in each competition?**
+
+Decastar	11.17538
+
+OlympicG	10.91571
+
+```{r}
+avg_100m <- decathlon %>% 
+  select(short_run, competition_name) %>% 
+  group_by(competition_name) %>% 
+  summarise(avg_short_run = mean(short_run))
+```
+
+**3. Who had the highest total points across both competitions?**
+
+Sebrle had the highest total score of	17110.
+
+```{r}
+highest_total_score <- decathlon %>%
+  select(names, points, competition_name) %>% 
+  group_by(names) %>% 
+  summarise(final_score = sum(points)) %>% 
+  arrange(desc(final_score)) %>% 
+  head(n = 1)
+```
+
+
+**4. What was the shot-put scores for the top three competitors in each competition?**
+
+Yurkov	15.19	Decastar		
+Sebrle	14.83	Decastar		
+Karpov	14.77	Decastar		
+Sebrle	16.36	OlympicG		
+Karpov	15.93	OlympicG		
+Macey	  15.73	OlympicG
+
+```{r}
+shot_put_best <- decathlon %>% 
+  select(names, shot_put, competition_name) %>% 
+  group_by(competition_name)%>% 
+  arrange(desc(shot_put)) %>%
+  slice_max(shot_put, n = 3)
+ 
+```
+
+**5. What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?**
+
+The average points for those who run 400m in less than 50 seconds was 7727, and the average points for those who run in more than 50s was 8120.
+
+```{r}
+avg_points_longrun <- decathlon %>% 
+  select(long_run, points) %>% 
+  mutate(above_50 = if_else(long_run > 50, TRUE, FALSE)) %>% 
+  group_by(above_50) %>% 
+  summarise(average_points = mean(points))
+```
+
