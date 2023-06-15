@@ -48,7 +48,6 @@ ANSWER: Average age for those who were not going out to trick or treat was aroun
 
 ```{r}
 
-
 not_going_out <- candies_long %>% 
   select(going_out, age) %>% 
   filter(going_out == "No") %>% 

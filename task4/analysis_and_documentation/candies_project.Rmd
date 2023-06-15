@@ -1,13 +1,50 @@
+---
+title: "candies_project"
+author: "J.Rosiak"
+date: "2023-06-15"
+output: html_document
+---
 
-## libraries used
+## *TITLE: Candies*
 
+The purpose of this project was to analyse some data on preferred and less preferred candies collected during Haloween trick or treating on three consecutive years: 2015 - 2017.
+
+## *Project description*
+
+There were three data sets with information from three years of Haloweeen Trick or Treating. The first part of the project involved preparing data for further analysis by transorming raw data into  clean file ready for further analysis.
+
+The second part of the project involved using R to answer some questions related to candy ratings and people preferences about sweets collected depending on the year, country they live in and gender.
+
+## *Software requirements*
+
+Cleaning tasks and analysis were performed using RStudio. 
+
+The following libraries were used:
+```{r}
 library(tidyverse)
 library(skimr)
 library(janitor)
 library(here)
 library(readxl)
 library(stringr)
+```
 
+
+## *Assumptions*
+
+For the purpose of the project I have made assumption on what candy is and used the definition offered by Collins Dictionary:
+'candy is a sweet food, usually in small pieces or bars, made mainly from sugar or syrup, with flavoring, fruit, chocolate, nuts, etc. added.' I have excluded cakes from it.
+
+I have also made an assumption that a candy bar 'is any form of confectionery in a solid usually rectangular block, especially one made with chocolate' - again following the definition offered by Collins Dictionary.
+
+## *Data cleaning*
+Data cleaning script is saved in the data_cleaning_scripts folder and is called cleaning_script_candies.R. Once the data has been read in I assigned each data set to a separate object.
+
+**At first I worked with all three data sets simultaneously.**
+
+Once the data was read in:
+
+```{r}
 here::here
 ## 1.read in data
 # 1.1
@@ -39,7 +76,7 @@ colnames(candy_2017)
 dim(candy_2017)
 skim(candy_2017)
 
-## 3. Clean names
+## 3. Cleaned names
 
 # 3.1
 candy_2015 <- clean_names(candy_2015)
@@ -53,7 +90,7 @@ candy_2017 <- clean_names(candy_2017)
 # 3.3.1 
 
 
-## 4.splitting time stamp column into 'year' and 'the rest'
+## 4.splitted time stamp column into 'year' and 'the rest'
 # 4.1
 candy_2015 <- candy_2015 %>% 
   separate(timestamp,c("year", "the_rest"), sep = "-" )
@@ -70,7 +107,7 @@ colnames(candy_2017) = str_remove(names(candy_2017), "^[a-z0-9]+[_]")
 candy_2017 <- clean_names(candy_2017) 
 
 
-# 5. assign all the columns, I want to drop to an object called 'drop_year'(first identify what columns are removed because they're not considered candy - 'not_candy_year', and the ones that are irrelevant to the analysis - 'irrelevant_col_year')
+# 5. assigned all the columns, I wanted to drop to an object called 'drop_year'(first identify what columns are removed because they're not considered candy - 'not_candy_year', and the ones that are irrelevant to the analysis - 'irrelevant_col_year')
 
 # 5.1
 not_candy_2015 <- c("vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein", "box_o_raisins","generic_brand_acetaminophen", "glow_sticks", "broken_glow_stick","healthy_fruit","hugs_actual_physical_hugs",  "creepy_religious_comics_chick_tracts","kale_smoothie","lapel_pins","minibags_of_chips", "spotted_dick", "peterson_brand_sidewalk_chalk", "peanut_butter_jars", "trail_mix","vicodin", "white_bread", "whole_wheat_anything","cash_or_other_forms_of_legal_tender")
@@ -273,4 +310,7 @@ candies_long <- candies %>%
 here::here
 write_csv(candies_long, file = (here("clean_data/candies_long.csv")))
 
+
+
+```
 

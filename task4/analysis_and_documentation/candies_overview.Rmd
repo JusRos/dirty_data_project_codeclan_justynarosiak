@@ -1,0 +1,590 @@
+---
+title: "Candies.README"
+author: "J.Rosiak"
+date: "2023-06-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## *TITLE: Candies*
+
+The purpose of this project was to analyse some data on preferred and less preferred candies collected during Haloween trick or treating on three consecutive years: 2015 - 2017.
+
+## *Project description*
+
+There were three data sets with information from three years of Haloweeen Trick or Treating. The first part of the project involved preparing data for further analysis by transorming raw data into  clean file ready for further analysis.
+
+The second part of the project involved using R to answer some questions related to candy ratings and people preferences about sweets collected depending on the year, country they live in and gender.
+
+## *Software requirements*
+
+Cleaning tasks and analysis were performed using RStudio. 
+
+The following libraries were used:
+```{r}
+library(tidyverse)
+library(skimr)
+library(janitor)
+library(here)
+library(readxl)
+library(stringr)
+```
+
+
+## *Assumptions*
+
+For the purpose of the project I have made assumption on what candy is and used the definition offered by Collins Dictionary:
+'candy is a sweet food, usually in small pieces or bars, made mainly from sugar or syrup, with flavoring, fruit, chocolate, nuts, etc. added.' I have excluded cakes from it.
+
+I have also made an assumption that a candy bar 'is any form of confectionery in a solid usually rectangular block, especially one made with chocolate' - again following the definition offered by Collins Dictionary.
+
+## *Data cleaning*
+Data cleaning script is saved in the data_cleaning_scripts folder and is called cleaning_script_candies.R. Once the data has been read in I assigned each data set to a separate object.
+
+**At first I worked with all three data sets simultaneously.**
+
+Once the data was read in:
+
+```{r}
+candy_2015 <- read_xlsx(here("..//task4/raw_data/boing-boing-candy-2015.xlsx"))
+
+# 1.2
+candy_2016 <- read_xlsx(here("..//task4/raw_data/boing-boing-candy-2016.xlsx"))
+
+# 1.3
+candy_2017 <- read_xlsx(here("../task4/raw_data/boing-boing-candy-2017.xlsx"))
+```
+
+1. I cleaned the names of all the columns sing janitor package.
+
+2. Separated timestamp column in 2015 and 2016 data sets to create a year column in the final data set. I have also added year column to 2017 data set.
+
+```{r}
+# splitted time stamp column into 'year' and 'the rest'
+
+candy_2015 <- candy_2015 %>% 
+  separate(timestamp,c("year", "the_rest"), sep = "-" )
+
+candy_2016 <- candy_2016 %>% 
+  separate(timestamp,c("year", "the_rest"), sep = "-" )
+
+#  added a year column to a data set
+
+candy_2017 <- candy_2017 %>% 
+  mutate(year = "2017")
+
+# removed 'q1:_' from each column name
+
+colnames(candy_2017) = str_remove(names(candy_2017), "^[a-z0-9]+[_]")
+# cleaned names again
+
+candy_2017 <- clean_names(candy_2017) 
+
+```
+
+
+3. The next step involved identifying columns I wanted to keep. It involved dropping columns that seemed to be completely irrelevant and the ones that were not candy. All these were done for each data set separately.
+
+```{r}
+#  assigned all the columns, I want to drop to an object called 'drop_year'(first identify what columns are removed because they're not considered candy - 'not_candy_year', and the ones that are irrelevant to the analysis - 'irrelevant_col_year')
+
+# 2015
+not_candy_2015 <- c("vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein", "box_o_raisins","generic_brand_acetaminophen", "glow_sticks", "broken_glow_stick","healthy_fruit","hugs_actual_physical_hugs",  "creepy_religious_comics_chick_tracts","kale_smoothie","lapel_pins","minibags_of_chips", "spotted_dick", "peterson_brand_sidewalk_chalk", "peanut_butter_jars", "trail_mix","vicodin", "white_bread", "whole_wheat_anything","cash_or_other_forms_of_legal_tender")
+
+irrelevant_col_2015 <- c("the_rest", "which_state_province_county_do_you_live_in",
+               "please_leave_any_remarks_or_comments_regarding_your_choices","please_list_any_items_not_included_above_that_give_you_joy","please_list_any_items_not_included_above_that_give_you_despair","guess_the_number_of_mints_in_my_hand","betty_or_veronica","check_all_that_apply_i_cried_tears_of_sadness_at_the_end_of","that_dress_that_went_viral_early_this_year_when_i_first_saw_it_it_was","fill_in_the_blank_taylor_swift_is_a_force_for","what_is_your_favourite_font","if_you_squint_really_hard_the_words_intelligent_design_would_look_like","fill_in_the_blank_imitation_is_a_form_of","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_jk_rowling","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_jj_abrams","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_beyonce","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_bieber","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_kevin_bacon","please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_francis_bacon_1561_1626","which_day_do_you_prefer_friday_or_sunday","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_bruce_lee","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_jk_rowling","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_malala_yousafzai","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_thom_yorke","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_jj_abrams","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_hillary_clinton","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_donald_trump","please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_beyonce_knowles",
+"please_leave_any_witty_snarky_or_thoughtful_remarks_or_comments_regarding_your_choices",
+"that_dress_that_went_viral_a_few_years_back_when_i_first_saw_it_it_was", "do_you_eat_apples_the_correct_way_east_to_west_side_to_side_or_do_you_eat_them_like_a_freak_of_nature_south_to_north_bottom_to_top","when_you_see_the_above_image_of_the_4_different_websites_which_one_would_you_most_likely_check_out_please_be_honest", "york_peppermint_patties_ignore"
+)
+
+drop_2015 <- c(not_candy_2015, irrelevant_col_2015)
+
+# 2016
+
+not_candy_2016 <- c("boxo_raisins","broken_glow_stick","cash_or_other_forms_of_legal_tender", "chardonnay","creepy_religious_comics_chick_tracts","generic_brand_acetaminophen","glow_sticks", "healthy_fruit","hugs_actual_physical_hugs", "person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes","spotted_dick", "trail_mix","vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein","vicodin", "white_bread","whole_wheat_anything","sandwich_sized_bags_filled_with_boo_berry_crunch","sweet_tarts","real_housewives_of_orange_county_season_9_blue_ray", "minibags_of_chips", "kale_smoothie"
+)
+
+irrelevant_col_2016 <- c("the_rest", "which_state_province_county_do_you_live_in", "please_list_any_items_not_included_above_that_give_you_joy",                       "please_list_any_items_not_included_above_that_give_you_despair",   "please_leave_any_witty_snarky_or_thoughtful_remarks_or_comments_regarding_your_choices", "guess_the_number_of_mints_in_my_hand","betty_or_veronica", "that_dress_that_went_viral_a_few_years_back_when_i_first_saw_it_it_was", "what_is_your_favourite_font", "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_jk_rowling",        "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_jj_abrams",         "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_beyonce",           "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_bieber",            "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_kevin_bacon", "please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_francis_bacon_1561_1626", "which_day_do_you_prefer_friday_or_sunday", "do_you_eat_apples_the_correct_way_east_to_west_side_to_side_or_do_you_eat_them_like_a_freak_of_nature_south_to_north_bottom_to_top", "when_you_see_the_above_image_of_the_4_different_websites_which_one_would_you_most_likely_check_out_please_be_honest","york_peppermint_patties_ignore")
+                         
+drop_2016 <- c(not_candy_2016, irrelevant_col_2016)
+
+# 2017
+not_candy_2017 <- c("boxo_raisins","broken_glow_stick","cash_or_other_forms_of_legal_tender", "chardonnay","creepy_religious_comics_chick_tracts","generic_brand_acetaminophen","glow_sticks", "healthy_fruit","hugs_actual_physical_hugs", "kale_smoothie", "person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes","spotted_dick", "trail_mix","vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein","vicodin", "white_bread","whole_wheat_anything", "bonkers_the_board_game")
+  
+irrelevant_col_2017 <- c("id","state_province_county_etc","joy_other","despair_other","other_comments","dress","x114","day","media_daily_dish","media_science","media_espn","media_yahoo","coordinates_x_y", "abstained_from_m_ming"
+)
+
+drop_2017 <- c(not_candy_2017, irrelevant_col_2017)
+
+
+```
+
+
+Then all unnecessary columns were dropped from each data set.
+
+```{r}
+# kept only columns that seemed to include candies and were relevant to the analysis
+
+# 2015 
+candy_2015 <- candy_2015[,!names(candy_2015) %in% drop_2015]
+
+# 2016
+candy_2016 <- candy_2016[,!names(candy_2016) %in% drop_2016]
+
+# 2017
+candy_2017 <- candy_2017[,!names(candy_2017) %in% drop_2017]
+
+```
+
+
+4. I tidied up column names further to make sure that each data set contains year, age, going_out, country, gender columns and the columns with names of the same sweets have the same names across all three data sets.
+
+```{r}
+# ensure each data set contains year, age, going_out, country, gender and other column names are likely to match
+
+# 2015
+
+candy_2015 <- candy_2015 %>% 
+  rename("age" = "how_old_are_you",
+         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself",
+         "anonymous_brown_globs" =
+           "anonymous_brown_globs_that_come_in_black_and_orange_wrappers")
+         
+
+# 2016
+
+candy_2016 <- candy_2016 %>% 
+  rename("age" = "how_old_are_you",
+         "gender" = "your_gender",
+         "going_out" = "are_you_going_actually_going_trick_or_treating_yourself","country" = "which_country_do_you_live_in",
+         "anonymous_brown_globs" =
+           "anonymous_brown_globs_that_come_in_black_and_orange_wrappers")
+
+# 2017 - all required columns already there, so only renaming one colum with extremely long name to ensure smoot joing at later stage
+
+candy_2017 <- candy_2017 %>% 
+  rename("anonymous_brown_globs" =
+  "anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes")
+
+```
+
+
+
+**Finally I joined all three sets together.** 
+
+1. I shortened columns names to 20 characters only.
+
+```{r}
+short_col_names <- str_sub(colnames(candies),start = 1, end = 20)
+
+colnames(candies) <- short_col_names
+```
+
+2. Then changed age column to numeric and ensured that data provided falls between 0 and 123.
+
+```{r}
+#according to GOOGLE the longest living person was 122 so decided 123 will be the top value for age
+
+candies <- candies %>% 
+  mutate(age = as.integer(age),
+         age = if_else(age > 0 & age <= 123, age , NA))
+
+```
+
+
+3. The next step was very lengthy as involved tidying up country column. It involved a mixture of using Regex and 'hard coding'. There was lots of variations of spelling USA and on many ocassions I also had to refer back to state province column to confirm what country should be entered.
+
+```{r}
+# at first I changed everything to sentence case and removed any punctuation, 
+#  replaced countries that have a number as a value to 'US' as the column with info about state/province suggested it was all USA
+# then I replaced all potential entries that suggest UK as a country with 'UK' and Canada with 'Canada'.
+
+candies <- candies %>% 
+  mutate(country = gsub("[[:punct:]]", "", country),   # remove any punctuation
+       country = str_to_sentence(country),
+       country = str_replace_all(country,"[0-9]+", "US"), # change numbers to US based on info from a 'state_province' column. 
+       country = case_when(country == "United kingdom" ~ "The UK",
+                           country == "United kindom"  ~ "The UK",
+                           country == "Uk"             ~ "The UK",
+                           country == "England"        ~ "The UK",
+                           country == "Endland"        ~ "The UK",
+                           country == "Scotland"       ~ "The UK",
+                           country == "Ud"             ~ NA,
+                           country == "Unhinged states"~ NA,
+                           country == "Can"            ~ "Canada",
+                           country == "Canae"          ~ "Canada",
+                           country == "Soviet canuckistan" ~ "Canada",
+                           TRUE                        ~ country))
+               
+# 10.3 tidy up countries that seem to be 'USA'
+
+candies <- candies %>% 
+  mutate(country = str_replace(country, "^U[a-z ]+[a-z]+", "US"),
+         country = case_when(
+            country == "Us" ~ "US",
+            country == "The united states" ~ "US",
+            country == "The united states of america" ~ "US",
+            country == "The yoo ess of aaayyyyyy" ~ "US",
+            country == "Pittsburgh" ~ "US",
+            country == "North carolina" ~ "US",
+            country == "New jersey" ~ "US",
+            country == "New york" ~ "US",
+            country == "I pretend to be from canada but i am really from the united states"   ~ "US",
+            country == "California" ~ "US",
+            country == "Alaska"  ~ "US",
+            country == "America" ~ "US",
+            country == "I don't know anymore" ~ "US",
+            country == "The best one  usa" ~ "US",
+            country == "Trumpistan" ~ "US",
+            country == "Narnia" ~ "US",
+            country == "Ahemamerca" ~ "US",
+            country == "A" ~ "US",
+            country == "The best one  usa" ~ "US",
+            country == "Murica" ~ "US",  
+            country == "Murrika" ~ "US",
+            country == "Merica" ~ "US",
+            country == "Gods country" ~ "US",
+            country == "N america" ~ "US",
+            country == "Subcanadian north america merica" ~ "US",
+            TRUE     ~ country
+))
+# 10.4 observations that do not allow to identify a specific country are being changed to 'NA'.
+
+
+candies <- candies %>% 
+  mutate(country = case_when(country == "Atlantis" ~ NA,
+       country == "Denial" ~ NA,
+       country == "Fear and loathing" ~ NA,
+       country == "Insanity lately" ~ NA,
+       country == "One of the best ones" ~ NA,
+       country == "See above" ~ NA,
+       country == "Somewhere" ~ NA,
+       country == "Subscribe to dmUSuzUS on youtube" ~ NA,
+       country == "The republic of cascadia" ~ NA, # could be either Canada or US
+       country == "Cascadia" ~ NA,
+       country == "There isnt one for old men" ~ NA,
+       country == "This one" ~ NA,
+       country == "Earth" ~ NA,
+       country == "A tropical island south of the equator" ~ NA,
+       country == "I dont know anymore" ~ NA,
+       country == "Not the usa or canada" ~ NA,
+       country == "Eua" ~ NA,
+       country == "Europe" ~ NA,
+       country == "Neverland" ~ NA,
+       TRUE     ~ country
+   ))	
+
+# 10.5 change all character 'NA's to logical
+
+candies <- candies %>% 
+  mutate(country = case_when(country == "NA" ~ NA,
+                             TRUE     ~ country))
+                         
+```
+
+
+When I was unable to identify a single country I changed country field to NA. It is also worth mentioning that the data set from 2015 has not included the country field at all.
+
+4. I changed the format of a data set to longer by using pivot_longer().
+
+```{r}
+# assigned all candy related part of df to columns_candy
+
+columns_candy <- candies %>% select(-c(year, age, gender, country, going_out))
+
+# 11.2 changed the format to long and assigned it to an object called "candies_long." 
+
+candies_long <- candies %>% 
+  pivot_longer(cols = names(columns_candy), 
+               names_to = "candie_name", 
+               values_to = "candies_rating")
+
+```
+
+
+5. Finally all the cleaned data has been saved in the file called candies_long.csv.
+
+```{r}
+# write a new csv into a clean data folder called 'candies_long.'
+here::here
+write_csv(candies_long, file = (here("clean_data/candies_long.csv")))
+
+```
+
+
+## *Analysis*
+
+In this part of the project I also used RStudio and the following libraries:
+* library(tidyverse)
+
+* library(skimr)
+
+* library(here)
+
+During analysis process I tried to answer the following questions:
+
+**1. What is the total number of candy ratings given across the three years.**
+
+There have been given 623053 candy ratings over 3 years.
+
+
+```{r}
+
+total_ratings <- candies_long %>% select(candies_rating) %>% 
+  filter(!is.na(candies_rating)) %>% 
+ summarise(count = n())
+   
+```
+
+
+
+**2. What was the average age of people who are going out trick or treating?**
+
+Average age for those who were going out to trick or treat was around 35.
+
+```{r}
+
+going_out <- candies_long %>% 
+  select(age, going_out) %>% 
+  filter(going_out == "Yes") %>% 
+  summarise(going_out_avg = round(mean((age), na.rm = TRUE)))
+  
+```
+
+**3. What was the average age of people who are not going trick or treating?**
+
+Average age for those who were not going out to trick or treat was around 39.
+```{r}
+
+not_going_out <- candies_long %>% 
+  select(going_out, age) %>% 
+  filter(going_out == "No") %>% 
+  summarise(going_out_avg = round(mean((age), na.rm = TRUE)))
+
+```
+
+**4. For each of joy, despair and meh, which candy bar received the most of these ratings?**
+
+The most 'joy' ratings received 'Kit-Kat bar'.
+
+The most 'despair' ratings received 'Chick o stick' bar.
+
+The most 'meh' ratings received '100_grand_bar' bar.
+
+```{r}
+joy_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "JOY") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+despair_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "DESPAIR") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+meh_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "MEH") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+  
+```
+
+**DISCLAIMER**
+*For the purpose of the analysis the following candies are considered candy bars:*
+
+* x100_grand_bar,
+
+* reggie_jackson_bar,
+
+* hershey_s_milk_choco,
+
+* mr_goodbar,
+
+* caramellos,
+
+* chick_o_sticks_we_do,
+
+* coffee_crisp,
+
+* three_musketeers,
+
+* hersheys_dark_chocol,
+
+* nestle_crunch,
+
+* whatchamacallit_bars,
+
+* milky_way,
+
+* heath_bar,
+
+* kinder_happy_hippo,
+
+* butterfinger,
+
+* kit_kat,
+
+* snickers,
+
+* twix
+
+
+**5. How many people rated Starburst as despair?**
+
+There were 1990 people, who rated Starburst as "despair"
+
+```{r}
+starburst_despair <- candies_long %>% 
+  select(candies_rating, candie_name) %>% 
+  filter(candie_name == "starburst") %>% 
+  filter(candies_rating == "DESPAIR") %>% 
+  count()
+```
+
+
+*For the next three questions, I was asked to count despair as -1, joy as +1, and meh as 0, so I assigned the new data set wit hnumeric rating to candies_numeric*
+
+```{r}
+candies_numeric <- candies_long %>% mutate(candies_rating_num = case_when(
+  candies_rating == "MEH" ~ 0,
+  candies_rating == "DESPAIR" ~ -1,
+  candies_rating == "JOY" ~ 1))
+```
+
+
+**6. What was the most popular candy bar by this rating system for each gender in the data set ?**
+
+Females preferred twix.
+
+
+```{r}
+females_preferred <- candies_numeric %>% select(gender, candies_rating_num, candie_name) %>%
+  filter(gender == "Female") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n)) 
+```
+
+Males preferred Kit Kats.
+
+
+```{r}
+males_preferred <- candies_numeric %>% select(gender, candies_rating_num, candie_name) %>%
+  filter(gender == "Male") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n)) 
+```
+
+
+**7. What was the most popular candy bar in each year?**
+
+I have made an assumptionthat the bar taht has received the most 1 ratings was the most popular candy bar.
+
+I have checked every year separately and it looked like Kit Kat was preferred irresspectively of a year.
+
+```{r}
+# 2015
+popular_2015 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2015) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+# 2016
+
+popular_2016 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2016) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+# 2017
+
+popular_2017 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2017) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+```
+
+**8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?**
+
+I have checked the most popular candy bar individually by country.
+
+The most popular candy bar in US and Canada was Kit Kat.
+
+The most popular candy bar in the UK were Milky Way and Twix. 
+
+Snickers was preferred in countries other than Us, Canada and UK.
+
+```{r}
+# US
+US_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "US") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+
+
+```{r}
+# UK
+UK_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "The UK") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+9.3 The most popular candy bar in Canada was Kit Kat.
+
+```{r}
+# Canada
+Canada_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "Canada") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+
+9.4  Snickers was preferred in countries other than Us, Canada and UK.
+
+```{r}
+# Other countries
+Other_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country != "Canada") %>% 
+  filter(country != "US") %>% 
+  filter(country != "The UK") %>% 
+  filter(!is.na(country)) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+```
+
+
+
+
+
