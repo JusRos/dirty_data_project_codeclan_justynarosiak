@@ -19,92 +19,249 @@ candies <- read_csv(here("clean_data/candies.csv"))
  
 1. What is the total number of candy ratings given across the three years. (Number of candy ratings, not the number of raters. Don’t count missing values)
 
+
+ANSWER: 623053 have been given over 3 years.
+
 ```{r}
-candies %>% 
-  select(-c(year, age, going_out, country, gender)) %>% 
-  summarise(across(.fns = ~sum(!is.na(.)))) %>% 
-  summarise(rowSums(.))
-  
+total_ratings <- candies_long %>% select(candies_rating) %>% 
+  filter(!is.na(candies_rating)) %>% 
+ summarise(count = n())
+   
 ```
 
-ANSWER: 624769 have been given over 3 years.
 
 2.  What was the average age of people who are going out trick or treating?
 
 ```{r}
 
-going_out <- candies %>% 
-  select(going_out, age) %>% 
-  drop_na(age) %>% 
+going_out <- candies_long %>% 
+  select(age, going_out) %>% 
   filter(going_out == "Yes") %>% 
-  summarise(going_out_avg = round(mean(age)))
-
-going_out 
-
+  summarise(going_out_avg = round(mean((age), na.rm = TRUE)))
+  
 ```
 ANSWER: Average age for those who were going out to trick or treat was around 35.
 
 3. What was the average age of people who are not going trick or treating?
+
+ANSWER: Average age for those who were not going out to trick or treat was around 39.
+
 ```{r}
 
-not_going_out <- candies %>% 
+
+not_going_out <- candies_long %>% 
   select(going_out, age) %>% 
-  drop_na(age) %>% 
   filter(going_out == "No") %>% 
-  summarise(not_going_out_avg = round(mean(age)))
+  summarise(going_out_avg = round(mean((age), na.rm = TRUE)))
+
 
 not_going_out  
 ```
-ANSWER: Average age for those who were not going out to trick or treat was around 40.
+
 
 
 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
+
+For the purpose of the analysis the following candies are considered candy bars:
+x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix)
+
+4.1.The most 'joy' ratings received 'Kit-Kat bar'.
+
 ```{r}
 
-candy_bars <- candies %>% 
-  select(x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix)
-    
-  
-
-joy_rating <- colSums(candy_bars == "JOY", na.rm = TRUE) %>% 
-  sort(decreasing = TRUE)
+joy_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "JOY") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
 
 joy_rating
 
+```
 
-despair_rating <- colSums(candy_bars == "DESPAIR", na.rm = TRUE) %>% 
-  sort(decreasing = TRUE)
+
+4.2 The most 'despair' ratings received 'Chick o stick' bar.
+
+```{r}
+despair_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "DESPAIR") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
 
 despair_rating
 
+```
 
-meh_rating <- colSums(candy_bars == "MEH", na.rm = TRUE) %>% 
-  sort(decreasing = TRUE)
+4.3 The most 'meh' ratings received '100_grand_bar' bar.
+
+```{r}
+
+meh_rating <- candies_long %>% 
+  select(candie_name, candies_rating) %>% 
+  filter(candies_rating == "MEH") %>% 
+  group_by(candie_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+  
 
 meh_rating
 
-
 ```
 
-ANSWER:
-The most 'joy' ratings received 'Kit-Kat bar'.
-The most 'despair' ratings received 'chick o stick' bar.
-The most 'meh' ratings received '100_grand_bar' bar.
 
 5. How many people rated Starburst as despair?
-```{r}
-starburst_despair <- candies %>% 
-  select(starburst) %>%
-  group_by(starburst) %>% 
-  filter(starburst == "DESPAIR") %>% 
-  count()
 
-starburst_despair
-```
 ANSWER: 1990 people rated Starburst as "despair"
 
-7. For the next three questions, count despair as -1, joy as +1, and meh as 0.
+```{r}
+starburst_despair <- candies_long %>% 
+  select(candies_rating, candie_name) %>% 
+  filter(candie_name == "starburst") %>% 
+  filter(candies_rating == "DESPAIR") %>% 
+  count()
+ 
+  
+starburst_despair
+```
 
-What was the most popular candy bar by this rating system for each gender in the dataset ?
-What was the most popular candy bar in each year?
-What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
+
+6. For the next three questions, count despair as -1, joy as +1, and meh as 0.
+for every pattern
+
+
+```{r}
+candies_long <- read_csv(here("clean_data/candies_long.csv"))
+```
+```{r}
+
+candies_numeric <- candies_long %>% mutate(candies_rating_num = case_when(
+  candies_rating == "MEH" ~ 0,
+  candies_rating == "DESPAIR" ~ -1,
+  candies_rating == "JOY" ~ 1))
+```
+
+7.What was the most popular candy bar by this rating system for each gender in the dataset ?
+
+7.1 Females preferred twix.
+
+```{r}
+females_preferred <- candies_numeric %>% select(gender, candies_rating_num, candie_name) %>%
+  filter(gender == "Female") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n)) 
+  
+
+females_preferred
+
+```
+7.2 Males preferred Kit Kats.
+
+```{r}
+males_preferred <- candies_numeric %>% select(gender, candies_rating_num, candie_name) %>%
+  filter(gender == "Male") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n)) 
+
+
+males_preferred
+```
+
+
+8. What was the most popular candy bar in each year?
+
+8.1 The most popular candy bar in 2015 was Kit Kat.
+
+```{r}
+popular_2015 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2015) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+```
+8.2 The most popular candy bar in 2016 was Kit Kat.
+
+```{r}
+popular_2016 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2016) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+8.3 The most popular candy bar in 2017 was Kit Kat.
+
+```{r}
+popular_2017 <- candies_numeric %>% select(year, candies_rating_num, candie_name) %>%
+  filter(year == 2017) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+popular_2017
+```
+
+9. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
+
+9.1 The most popular candy bar in US was Kit Kat.
+```{r}
+US_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "US") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+9.2 The most popular candy bar in the UK were Milky Way and Twix. 
+
+```{r}
+UK_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "The UK") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+9.3 The most popular candy bar in Canada was Kit Kat.
+
+```{r}
+Canada_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country == "Canada") %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+
+
+```
+9.4  Snickers was preferred in countries other than Us, Canada and UK.
+
+```{r}
+country <- c(candies_long$country)
+
+Other_popular <- candies_numeric %>% select(country, candies_rating_num, candie_name) %>%
+  filter(country != "Canada") %>% 
+  filter(country != "US") %>% 
+  filter(country != "The UK") %>% 
+  filter(!is.na(country)) %>% 
+  filter(candies_rating_num == 1) %>%
+  group_by(candie_name) %>% 
+  summarise(n = sum(candies_rating_num)) %>% 
+  arrange(desc(n))
+```
+

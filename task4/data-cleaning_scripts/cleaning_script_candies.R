@@ -251,17 +251,30 @@ candies <- candies %>%
        TRUE     ~ country
    ))	
 
-
+candies <- candies %>% 
+  mutate(country = case_when(country != ("Canada" & "The UK" & "US" & NA) ~ "Other",
+                             TRUE ~ country))
 # 10.5 change all character 'NA's to logical
 
 candies <- candies %>% 
   mutate(country = case_when(country == "NA" ~ NA,
                              TRUE     ~ country))
                          
- # 11  write candies.CSV
+ 
+# 11. change the data frame format from wide to long to help with answering further
+# analysis questions
 
-write_csv(candies, file = (here("../task4/clean_data/candies.csv")))
+# 11.1 assign all candy related part of df to columns_candy
+columns_candy <- candies %>% select(-c(year, age, gender, country, going_out))
 
+# 11.2 change the format to long and assign it to an object called "candies_long." 
 
+candies_long <- candies %>% 
+  pivot_longer(cols = names(columns_candy), 
+               names_to = "candie_name", 
+               values_to = "candies_rating")
+
+# 11.3 write a new csv into a clean data folder called 'candies_long.'
+write_csv(candies_long, file =(here("clean_data/candies_long.csv")))
 
 
