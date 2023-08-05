@@ -11,14 +11,14 @@ library(tidyverse)
 library(here)
 
 ```
-
+1. read in data
 
 ```{r}
 # read in data
 decathlon <- read_csv("../clean_data/decathlon_clean.csv")
 ```
 
-Who had the longest long jump seen in the data?
+2. Who had the longest long jump seen in the data?
 
 ```{r}
 longest_jump <- decathlon %>% 
@@ -30,7 +30,7 @@ longest_jump
 # Clay had the longest jump (7.96).
 ```
 
-What was the average 100m time in each competition?
+3.What was the average 100m time in each competition?
 
 ```{r}
 avg_100m <- decathlon %>% 
@@ -42,7 +42,7 @@ avg_100m
 ```
 
 
-Who had the highest total points across both competitions?
+4. Who had the highest total points across both competitions?
 
 ```{r}
 highest_total_score <- decathlon %>%
@@ -56,7 +56,7 @@ highest_total_score
   
 ```
 
-What was the shot-put scores for the top three competitors in each competition?
+5. What was the shot-put scores for the top three competitors in each competition?
 
 ```{r}
 shot_put_best <- decathlon %>% 
@@ -68,7 +68,7 @@ shot_put_best <- decathlon %>%
 shot_put_best
 ```
 
-What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
+6. What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
 
 
 ```{r}

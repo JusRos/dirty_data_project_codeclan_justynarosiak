@@ -13,8 +13,8 @@ library(here)
 
 Read in csv
 ```{r}
-here::here
-candies_long <- read_csv(here("clean_data/candies_long.csv  "))
+here::here()
+candies_long <- read_csv(here("clean_data/candies_long.csv"))
 ```
  
 1. What is the total number of candy ratings given across the three years. (Number of candy ratings, not the number of raters. Don’t count missing values)
@@ -40,7 +40,9 @@ going_out <- candies_long %>%
   summarise(going_out_avg = round(mean((age), na.rm = TRUE)))
   
 ```
+
 ANSWER: Average age for those who were going out to trick or treat was around 35.
+
 
 3. What was the average age of people who are not going trick or treating?
 
@@ -61,7 +63,14 @@ not_going_out
 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
 
 For the purpose of the analysis the following candies are considered candy bars:
-x100_grand_bar,reggie_jackson_bar,hershey_s_milk_choco,mr_goodbar,caramellos,chick_o_sticks_we_do,coffee_crisp,three_musketeers,hersheys_dark_chocol,nestle_crunch,whatchamacallit_bars,milky_way,heath_bar,kinder_happy_hippo,butterfinger,kit_kat,snickers,twix
+x100_grand_bar, reggie_jackson_bar, hershey_s_milk_chocolate, mr_goodbar, caramellos, chick_o_sticks_we_don_t_k, coffee_crisp, three_musketeers, hersheys_dark_chocol, nestle_crunch, whatchamacallit_bars, milky_way, heath_bar, kinder_happy_hippo, butterfinger, kit_kat, snickers, twix, any_full_sized_candy_bar, tolberone_something_or_ot
+
+
+
+```{r}
+unique(candies_long$candie_name)
+```
+
 
 4.1.The most 'joy' ratings received 'Kit-Kat bar'.
 

@@ -11,12 +11,8 @@ decathlon <- readRDS(here("raw_data/decathlon.rds"))
 
 
 # explore data
-view(decathlon)
+
 head(decathlon)
-tail(decathlon)
-names(decathlon)
-glimpse(decathlon)
-colnames(decathlon)
 
 # noticed that there are row names, so converted them into names column 
 # and reassigned to decathlon
