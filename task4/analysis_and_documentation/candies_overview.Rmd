@@ -1,26 +1,33 @@
 ---
-title: "Candies.README"
+title: "Candies"
 author: "J.Rosiak"
 date: "2023-06-15"
-output: html_document
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  message = FALSE,     # Hide messages
+  warning = FALSE      # Hide warnings
+)
 ```
 
-## *TITLE: Candies*
 
-The purpose of this project was to analyse some data on preferred and less preferred candies collected during Haloween trick or treating on three consecutive years: 2015 - 2017.
 
-## *Project description*
+## **Project description**
 
-There were three data sets with information from three years of Haloweeen Trick or Treating. The first part of the project involved preparing data for further analysis by transorming raw data into  clean file ready for further analysis.
+The purpose of this project was to analyse some data on preferred and less preferred candies collected during Halloween trick or treating on three consecutive years: 2015 - 2017.
+There were three data sets with information from three years of Halloween Trick or Treating. The first part of the project involved preparing data for further analysis by transforming raw data into  clean file ready for further analysis.
 
 The second part of the project involved using R to answer some questions related to candy ratings and people preferences about sweets collected depending on the year, country they live in and gender.
 
-## *Software requirements*
+## **Software requirements**
 
 Cleaning tasks and analysis were performed using RStudio. 
 
@@ -35,21 +42,21 @@ library(stringr)
 ```
 
 
-## *Assumptions*
+## **Assumptions**
 
 For the purpose of the project I have made assumption on what candy is and used the definition offered by Collins Dictionary:
 'candy is a sweet food, usually in small pieces or bars, made mainly from sugar or syrup, with flavoring, fruit, chocolate, nuts, etc. added.' I have excluded cakes from it.
 
 I have also made an assumption that a candy bar 'is any form of confectionery in a solid usually rectangular block, especially one made with chocolate' - again following the definition offered by Collins Dictionary.
 
-## *Data cleaning*
+## **Data cleaning**
 Data cleaning script is saved in the data_cleaning_scripts folder and is called cleaning_script_candies.R. Once the data has been read in I assigned each data set to a separate object.
 
 **At first I worked with all three data sets simultaneously.**
 
 Once the data was read in:
 
-```{r}
+```{r mesage = FALSE}
 candy_2015 <- read_xlsx(here("..//task4/raw_data/boing-boing-candy-2015.xlsx"))
 
 # 1.2
@@ -136,7 +143,7 @@ drop_2017 <- c(not_candy_2017, irrelevant_col_2017)
 ```
 
 
-Then all unnecessary columns were dropped from each data set.
+4. Then all unnecessary columns were dropped from each data set.
 
 ```{r}
 
@@ -157,7 +164,7 @@ candy_2017 <- candy_2017 %>%
 ```
 
 
-4. I tidied up column names further to make sure that each data set contains year, age, going_out, country, gender columns and the columns with names of the same sweets have the same names across all three data sets and binded all three sets together.
+5. I tidied up column names further to make sure that each data set contains year, age, going_out, country, gender columns and the columns with names of the same sweets have the same names across all three data sets and binded all three sets together.
 
 ```{r}
 # ensure each data set contains year, age, going_out, country, gender and other column names are likely to match
@@ -196,7 +203,7 @@ candies <- bind_rows(candy_2015, candy_2016, candy_2017)
 
 
 
-**Finally I joined all three sets together.** 
+ **Finally I joined all three sets together.** 
 
 1. I shortened columns names to 25 characters only for convenience but also to ensure that all candy bars are included ('any_full_sized_candy_bar' was the longest column name indicating a candy bar)
 
@@ -338,9 +345,10 @@ write_csv(candies_long, file = (here("clean_data/candies_long.csv")))
 ```
 
 
-## *Analysis*
+##**Analysis**
 
 In this part of the project I also used RStudio and the following libraries:
+
 * library(tidyverse)
 
 * library(here)
@@ -349,7 +357,7 @@ During analysis process I tried to answer the following questions:
 
 **1. What is the total number of candy ratings given across the three years.**
 
-There have been given 623053 candy ratings over 3 years.
+There have been given 623 053 candy ratings over 3 years.
 
 
 ```{r}
@@ -382,6 +390,7 @@ going_out
 **3. What was the average age of people who are not going trick or treating?**
 
 Average age for those who were not going out to trick or treat was around 39.
+
 ```{r}
 
 not_going_out <- candies_long %>% 
@@ -392,7 +401,9 @@ not_going_out <- candies_long %>%
 not_going_out
 ```
 
-**4. For each of joy, despair and meh, which candy bar received the most of these ratings?**
+
+**4. For each of 'joy', 'despair' and 'meh', which candy bar received the most of these ratings?**
+
 
 The most 'joy' ratings received 'Kit-Kat bar'.
 
@@ -431,6 +442,7 @@ meh_rating
 ```
 
 **DISCLAIMER**
+
 *For the purpose of the analysis the following candies are considered candy bars:*
 
 * any_full_sized_candy_bar
@@ -473,6 +485,12 @@ meh_rating
 
 * tolberone_something_or_ot
 
+```{r}
+# add 'is_candie_bar' column with true and false so candie bars can be ewasily identified
+
+candies_long <- candies_long %>% 
+  mutate(is_candie_bar = if_else(candie_name %in% c("x100_grand_bar", "reggie_jackson_bar", "hershey_s_milk_chocolate", "mr_goodbar", "caramellos", "chick_o_sticks_we_don_t_k", "coffee_crisp", "three_musketeers", "hersheys_dark_chocol", "nestle_crunch", "whatchamacallit_bars", "milky_way", "heath_bar", "kinder_happy_hippo", "butterfinger", "kit_kat", "snickers", "twix", "any_full_sized_candy_bar", "tolberone_something_or_ot"), TRUE, FALSE), .after = candie_name)
+```
 
 
 **5. How many people rated Starburst as despair?**
@@ -490,9 +508,10 @@ starburst_despair
 ```
 
 
-*For the next three questions, I was asked to count despair as -1, joy as +1, and meh as 0, so I assigned the new data set wit hnumeric rating to candies_numeric*
+**For the next three questions, I was asked to count 'despair' as -1, 'joy' as +1, and 'meh 'as 0, so I assigned the new data set with numeric rating to candies_numeric**
 
 ```{r}
+
 candies_numeric <- candies_long %>% mutate(candies_rating_num = case_when(
   candies_rating == "MEH" ~ 0,
   candies_rating == "DESPAIR" ~ -1,
@@ -580,9 +599,7 @@ popular_2017
 
 I have checked the most popular candy bar individually by country.
 
-The most popular candy bar in US and Canada was 'any_full_sized_candy_bar'.
-
-The most popular candy bar in the UK were 'any_full_sized_candy_bar'. 
+The most popular candy bar in US, Canada and US was the same - 'any_full_sized_candy_bar'.
 
 'Any_full_sized_candy_bar' was also preferred in countries other than Us, Canada and UK.
 
@@ -612,7 +629,7 @@ uk_popular <- candies_numeric %>%
 uk_popular
 
 ```
-9.3 The most popular candy bar in Canada was Kit Kat.
+
 
 ```{r}
 # Canada
@@ -628,7 +645,6 @@ canada_popular <- candies_numeric %>%
 canada_popular
 ```
 
-9.4  Snickers was preferred in countries other than Us, Canada and UK.
 
 ```{r}
 # Other countries

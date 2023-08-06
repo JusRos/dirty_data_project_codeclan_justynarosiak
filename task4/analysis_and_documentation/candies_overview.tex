@@ -1,0 +1,1268 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Candies},
+  pdfauthor={J.Rosiak},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Candies}
+\author{J.Rosiak}
+\date{2023-06-15}
+
+\begin{document}
+\maketitle
+
+\hypertarget{project-description}{%
+\subsection{\texorpdfstring{\textbf{Project
+description}}{Project description}}\label{project-description}}
+
+The purpose of this project was to analyse some data on preferred and
+less preferred candies collected during Halloween trick or treating on
+three consecutive years: 2015 - 2017. There were three data sets with
+information from three years of Halloween Trick or Treating. The first
+part of the project involved preparing data for further analysis by
+transforming raw data into clean file ready for further analysis.
+
+The second part of the project involved using R to answer some questions
+related to candy ratings and people preferences about sweets collected
+depending on the year, country they live in and gender.
+
+\hypertarget{software-requirements}{%
+\subsection{\texorpdfstring{\textbf{Software
+requirements}}{Software requirements}}\label{software-requirements}}
+
+Cleaning tasks and analysis were performed using RStudio.
+
+The following libraries were used:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(skimr)}
+\FunctionTok{library}\NormalTok{(janitor)}
+\FunctionTok{library}\NormalTok{(here)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{assumptions}{%
+\subsection{\texorpdfstring{\textbf{Assumptions}}{Assumptions}}\label{assumptions}}
+
+For the purpose of the project I have made assumption on what candy is
+and used the definition offered by Collins Dictionary: `candy is a sweet
+food, usually in small pieces or bars, made mainly from sugar or syrup,
+with flavoring, fruit, chocolate, nuts, etc. added.' I have excluded
+cakes from it.
+
+I have also made an assumption that a candy bar `is any form of
+confectionery in a solid usually rectangular block, especially one made
+with chocolate' - again following the definition offered by Collins
+Dictionary.
+
+\hypertarget{data-cleaning}{%
+\subsection{\texorpdfstring{\textbf{Data
+cleaning}}{Data cleaning}}\label{data-cleaning}}
+
+Data cleaning script is saved in the data\_cleaning\_scripts folder and
+is called cleaning\_script\_candies.R. Once the data has been read in I
+assigned each data set to a separate object.
+
+\textbf{At first I worked with all three data sets simultaneously.}
+
+Once the data was read in:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candy\_2015 }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"..//task4/raw\_data/boing{-}boing{-}candy{-}2015.xlsx"}\NormalTok{))}
+
+\CommentTok{\# 1.2}
+\NormalTok{candy\_2016 }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"..//task4/raw\_data/boing{-}boing{-}candy{-}2016.xlsx"}\NormalTok{))}
+
+\CommentTok{\# 1.3}
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"../task4/raw\_data/boing{-}boing{-}candy{-}2017.xlsx"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  I cleaned the names of all the columns sing janitor package.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candy\_2015 }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(candy\_2015)}
+
+\NormalTok{candy\_2016 }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(candy\_2016) }
+
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(candy\_2017) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Separated timestamp column in 2015 and 2016 data sets to create a year
+  column in the final data set. I have also added year column to 2017
+  data set.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# splitted time stamp column into \textquotesingle{}year\textquotesingle{} and \textquotesingle{}the rest\textquotesingle{}}
+
+\NormalTok{candy\_2015 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2015 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate}\NormalTok{(timestamp,}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"the\_rest"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"{-}"}\NormalTok{ )}
+
+\NormalTok{candy\_2016 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2016 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate}\NormalTok{(timestamp,}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"the\_rest"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"{-}"}\NormalTok{ )}
+
+\CommentTok{\#  added a year column to a data set}
+
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2017 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{year =} \StringTok{"2017"}\NormalTok{)}
+
+\CommentTok{\# removed \textquotesingle{}q1:\_\textquotesingle{} from each column name}
+
+\FunctionTok{colnames}\NormalTok{(candy\_2017) }\OtherTok{=} \FunctionTok{str\_remove}\NormalTok{(}\FunctionTok{names}\NormalTok{(candy\_2017), }\StringTok{"\^{}[a{-}z0{-}9]+[\_]"}\NormalTok{)}
+
+\CommentTok{\# cleaned names again}
+
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{clean\_names}\NormalTok{(candy\_2017) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The next step involved identifying columns I wanted to keep. It
+  involved dropping columns that seemed to be completely irrelevant and
+  the ones that were not candy. All these were done for each data set
+  separately.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#  assigned all the columns, I want to drop to an object called \textquotesingle{}drop\_year\textquotesingle{}(first identify what columns are removed because they\textquotesingle{}re not considered candy {-} \textquotesingle{}not\_candy\_year\textquotesingle{}, and the ones that are irrelevant to the analysis {-} \textquotesingle{}irrelevant\_col\_year\textquotesingle{})}
+
+\CommentTok{\# 2015}
+\NormalTok{not\_candy\_2015 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"vials\_of\_pure\_high\_fructose\_corn\_syrup\_for\_main\_lining\_into\_your\_vein"}\NormalTok{, }\StringTok{"box\_o\_raisins"}\NormalTok{,}\StringTok{"generic\_brand\_acetaminophen"}\NormalTok{, }\StringTok{"glow\_sticks"}\NormalTok{, }\StringTok{"broken\_glow\_stick"}\NormalTok{,}\StringTok{"healthy\_fruit"}\NormalTok{,}\StringTok{"hugs\_actual\_physical\_hugs"}\NormalTok{,  }\StringTok{"creepy\_religious\_comics\_chick\_tracts"}\NormalTok{,}\StringTok{"kale\_smoothie"}\NormalTok{,}\StringTok{"lapel\_pins"}\NormalTok{,}\StringTok{"minibags\_of\_chips"}\NormalTok{, }\StringTok{"spotted\_dick"}\NormalTok{, }\StringTok{"peterson\_brand\_sidewalk\_chalk"}\NormalTok{, }\StringTok{"peanut\_butter\_jars"}\NormalTok{, }\StringTok{"trail\_mix"}\NormalTok{,}\StringTok{"vicodin"}\NormalTok{, }\StringTok{"white\_bread"}\NormalTok{, }\StringTok{"whole\_wheat\_anything"}\NormalTok{,}\StringTok{"cash\_or\_other\_forms\_of\_legal\_tender"}\NormalTok{)}
+
+\NormalTok{irrelevant\_col\_2015 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"the\_rest"}\NormalTok{, }\StringTok{"which\_state\_province\_county\_do\_you\_live\_in"}\NormalTok{,}
+               \StringTok{"please\_leave\_any\_remarks\_or\_comments\_regarding\_your\_choices"}\NormalTok{,}\StringTok{"please\_list\_any\_items\_not\_included\_above\_that\_give\_you\_joy"}\NormalTok{,}\StringTok{"please\_list\_any\_items\_not\_included\_above\_that\_give\_you\_despair"}\NormalTok{,}\StringTok{"guess\_the\_number\_of\_mints\_in\_my\_hand"}\NormalTok{,}\StringTok{"betty\_or\_veronica"}\NormalTok{,}\StringTok{"check\_all\_that\_apply\_i\_cried\_tears\_of\_sadness\_at\_the\_end\_of"}\NormalTok{,}\StringTok{"that\_dress\_that\_went\_viral\_early\_this\_year\_when\_i\_first\_saw\_it\_it\_was"}\NormalTok{,}\StringTok{"fill\_in\_the\_blank\_taylor\_swift\_is\_a\_force\_for"}\NormalTok{,}\StringTok{"what\_is\_your\_favourite\_font"}\NormalTok{,}\StringTok{"if\_you\_squint\_really\_hard\_the\_words\_intelligent\_design\_would\_look\_like"}\NormalTok{,}\StringTok{"fill\_in\_the\_blank\_imitation\_is\_a\_form\_of"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_jk\_rowling"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_jj\_abrams"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_beyonce"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_bieber"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_kevin\_bacon"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_francis\_bacon\_1561\_1626"}\NormalTok{,}\StringTok{"which\_day\_do\_you\_prefer\_friday\_or\_sunday"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_bruce\_lee"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_jk\_rowling"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_malala\_yousafzai"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_thom\_yorke"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_jj\_abrams"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_hillary\_clinton"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_donald\_trump"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degrees\_of\_separation\_you\_have\_from\_the\_following\_folks\_beyonce\_knowles"}\NormalTok{,}
+\StringTok{"please\_leave\_any\_witty\_snarky\_or\_thoughtful\_remarks\_or\_comments\_regarding\_your\_choices"}\NormalTok{,}
+\StringTok{"that\_dress\_that\_went\_viral\_a\_few\_years\_back\_when\_i\_first\_saw\_it\_it\_was"}\NormalTok{, }\StringTok{"do\_you\_eat\_apples\_the\_correct\_way\_east\_to\_west\_side\_to\_side\_or\_do\_you\_eat\_them\_like\_a\_freak\_of\_nature\_south\_to\_north\_bottom\_to\_top"}\NormalTok{,}\StringTok{"when\_you\_see\_the\_above\_image\_of\_the\_4\_different\_websites\_which\_one\_would\_you\_most\_likely\_check\_out\_please\_be\_honest"}\NormalTok{, }\StringTok{"york\_peppermint\_patties\_ignore"}
+\NormalTok{)}
+
+\NormalTok{drop\_2015 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(not\_candy\_2015, irrelevant\_col\_2015)}
+
+\CommentTok{\# 2016}
+
+\NormalTok{not\_candy\_2016 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"boxo\_raisins"}\NormalTok{,}\StringTok{"broken\_glow\_stick"}\NormalTok{,}\StringTok{"cash\_or\_other\_forms\_of\_legal\_tender"}\NormalTok{, }\StringTok{"chardonnay"}\NormalTok{,}\StringTok{"creepy\_religious\_comics\_chick\_tracts"}\NormalTok{,}\StringTok{"generic\_brand\_acetaminophen"}\NormalTok{,}\StringTok{"glow\_sticks"}\NormalTok{, }\StringTok{"healthy\_fruit"}\NormalTok{,}\StringTok{"hugs\_actual\_physical\_hugs"}\NormalTok{, }\StringTok{"person\_of\_interest\_season\_3\_dvd\_box\_set\_not\_including\_disc\_4\_with\_hilarious\_outtakes"}\NormalTok{,}\StringTok{"spotted\_dick"}\NormalTok{, }\StringTok{"trail\_mix"}\NormalTok{,}\StringTok{"vials\_of\_pure\_high\_fructose\_corn\_syrup\_for\_main\_lining\_into\_your\_vein"}\NormalTok{,}\StringTok{"vicodin"}\NormalTok{, }\StringTok{"white\_bread"}\NormalTok{,}\StringTok{"whole\_wheat\_anything"}\NormalTok{,}\StringTok{"sandwich\_sized\_bags\_filled\_with\_boo\_berry\_crunch"}\NormalTok{,}\StringTok{"sweet\_tarts"}\NormalTok{,}\StringTok{"real\_housewives\_of\_orange\_county\_season\_9\_blue\_ray"}\NormalTok{, }\StringTok{"minibags\_of\_chips"}\NormalTok{, }\StringTok{"kale\_smoothie"}
+\NormalTok{)}
+
+\NormalTok{irrelevant\_col\_2016 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"the\_rest"}\NormalTok{, }\StringTok{"which\_state\_province\_county\_do\_you\_live\_in"}\NormalTok{, }\StringTok{"please\_list\_any\_items\_not\_included\_above\_that\_give\_you\_joy"}\NormalTok{,                       }\StringTok{"please\_list\_any\_items\_not\_included\_above\_that\_give\_you\_despair"}\NormalTok{, }\StringTok{"please\_leave\_any\_witty\_snarky\_or\_thoughtful\_remarks\_or\_comments\_regarding\_your\_choices"}\NormalTok{, }\StringTok{"guess\_the\_number\_of\_mints\_in\_my\_hand"}\NormalTok{,}\StringTok{"betty\_or\_veronica"}\NormalTok{, }\StringTok{"that\_dress\_that\_went\_viral\_a\_few\_years\_back\_when\_i\_first\_saw\_it\_it\_was"}\NormalTok{, }\StringTok{"what\_is\_your\_favourite\_font"}\NormalTok{, }\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_jk\_rowling"}\NormalTok{, }\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_jj\_abrams"}\NormalTok{,         }\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_beyonce"}\NormalTok{, }\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_bieber"}\NormalTok{,            }\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_kevin\_bacon"}\NormalTok{,}\StringTok{"please\_estimate\_the\_degree\_s\_of\_separation\_you\_have\_from\_the\_following\_celebrities\_francis\_bacon\_1561\_1626"}\NormalTok{, }\StringTok{"which\_day\_do\_you\_prefer\_friday\_or\_sunday"}\NormalTok{, }\StringTok{"do\_you\_eat\_apples\_the\_correct\_way\_east\_to\_west\_side\_to\_side\_or\_do\_you\_eat\_them\_like\_a\_freak\_of\_nature\_south\_to\_north\_bottom\_to\_top"}\NormalTok{, }\StringTok{"when\_you\_see\_the\_above\_image\_of\_the\_4\_different\_websites\_which\_one\_would\_you\_most\_likely\_check\_out\_please\_be\_honest"}\NormalTok{,}\StringTok{"york\_peppermint\_patties\_ignore"}\NormalTok{)}
+                         
+\NormalTok{drop\_2016 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(not\_candy\_2016, irrelevant\_col\_2016)}
+
+\CommentTok{\# 2017}
+\NormalTok{not\_candy\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"boxo\_raisins"}\NormalTok{,}\StringTok{"broken\_glow\_stick"}\NormalTok{,}\StringTok{"cash\_or\_other\_forms\_of\_legal\_tender"}\NormalTok{, }\StringTok{"chardonnay"}\NormalTok{,}\StringTok{"creepy\_religious\_comics\_chick\_tracts"}\NormalTok{,}\StringTok{"generic\_brand\_acetaminophen"}\NormalTok{,}\StringTok{"glow\_sticks"}\NormalTok{, }\StringTok{"healthy\_fruit"}\NormalTok{,}\StringTok{"hugs\_actual\_physical\_hugs"}\NormalTok{, }\StringTok{"kale\_smoothie"}\NormalTok{, }\StringTok{"person\_of\_interest\_season\_3\_dvd\_box\_set\_not\_including\_disc\_4\_with\_hilarious\_outtakes"}\NormalTok{,}\StringTok{"spotted\_dick"}\NormalTok{, }\StringTok{"trail\_mix"}\NormalTok{,}\StringTok{"vials\_of\_pure\_high\_fructose\_corn\_syrup\_for\_main\_lining\_into\_your\_vein"}\NormalTok{,}\StringTok{"vicodin"}\NormalTok{, }\StringTok{"white\_bread"}\NormalTok{,}\StringTok{"whole\_wheat\_anything"}\NormalTok{, }\StringTok{"bonkers\_the\_board\_game"}\NormalTok{)}
+  
+\NormalTok{irrelevant\_col\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{,}\StringTok{"state\_province\_county\_etc"}\NormalTok{,}\StringTok{"joy\_other"}\NormalTok{,}\StringTok{"despair\_other"}\NormalTok{,}\StringTok{"other\_comments"}\NormalTok{,}\StringTok{"dress"}\NormalTok{,}\StringTok{"x114"}\NormalTok{,}\StringTok{"day"}\NormalTok{,}\StringTok{"media\_daily\_dish"}\NormalTok{,}\StringTok{"media\_science"}\NormalTok{,}\StringTok{"media\_espn"}\NormalTok{,}\StringTok{"media\_yahoo"}\NormalTok{,}\StringTok{"coordinates\_x\_y"}\NormalTok{, }\StringTok{"abstained\_from\_m\_ming"}
+\NormalTok{)}
+
+\NormalTok{drop\_2017 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(not\_candy\_2017, irrelevant\_col\_2017)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Then all unnecessary columns were dropped from each data set.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# kept only columns that seemed to include candies and were relevant to the analysis}
+
+\CommentTok{\# 2015 }
+\NormalTok{candy\_2015 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2015 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{any\_of}\NormalTok{(drop\_2015))}
+
+\CommentTok{\# 2016}
+\NormalTok{candy\_2016 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2016 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{any\_of}\NormalTok{(drop\_2016))}
+
+\CommentTok{\# 2017}
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2017 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{any\_of}\NormalTok{(drop\_2017))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  I tidied up column names further to make sure that each data set
+  contains year, age, going\_out, country, gender columns and the
+  columns with names of the same sweets have the same names across all
+  three data sets and binded all three sets together.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ensure each data set contains year, age, going\_out, country, gender and other column names are likely to match}
+
+\CommentTok{\# 2015}
+
+\NormalTok{candy\_2015 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2015 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"age"} \OtherTok{=} \StringTok{"how\_old\_are\_you"}\NormalTok{,}
+         \StringTok{"going\_out"} \OtherTok{=} \StringTok{"are\_you\_going\_actually\_going\_trick\_or\_treating\_yourself"}\NormalTok{,}
+         \StringTok{"anonymous\_brown\_globs"} \OtherTok{=}
+           \StringTok{"anonymous\_brown\_globs\_that\_come\_in\_black\_and\_orange\_wrappers"}\NormalTok{)}
+         
+
+\CommentTok{\# 2016}
+
+\NormalTok{candy\_2016 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2016 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"age"} \OtherTok{=} \StringTok{"how\_old\_are\_you"}\NormalTok{,}
+         \StringTok{"gender"} \OtherTok{=} \StringTok{"your\_gender"}\NormalTok{,}
+         \StringTok{"going\_out"} \OtherTok{=} \StringTok{"are\_you\_going\_actually\_going\_trick\_or\_treating\_yourself"}\NormalTok{,}\StringTok{"country"} \OtherTok{=} \StringTok{"which\_country\_do\_you\_live\_in"}\NormalTok{,}
+         \StringTok{"anonymous\_brown\_globs"} \OtherTok{=}
+           \StringTok{"anonymous\_brown\_globs\_that\_come\_in\_black\_and\_orange\_wrappers"}\NormalTok{)}
+
+\CommentTok{\# 2017 {-} all required columns already there, so only renaming one colum with extremely long name to ensure smooth binding at a later stage}
+
+\NormalTok{candy\_2017 }\OtherTok{\textless{}{-}}\NormalTok{ candy\_2017 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"anonymous\_brown\_globs"} \OtherTok{=}
+  \StringTok{"anonymous\_brown\_globs\_that\_come\_in\_black\_and\_orange\_wrappers\_a\_k\_a\_mary\_janes"}\NormalTok{)}
+
+
+\CommentTok{\# binding all three datasets}
+
+
+\NormalTok{candies }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(candy\_2015, candy\_2016, candy\_2017)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Finally I joined all three sets together.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  I shortened columns names to 25 characters only for convenience but
+  also to ensure that all candy bars are included
+  (`any\_full\_sized\_candy\_bar' was the longest column name indicating
+  a candy bar)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{short\_col\_names }\OtherTok{\textless{}{-}} \FunctionTok{str\_sub}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(candies), }\AttributeTok{start =} \DecValTok{1}\NormalTok{, }\AttributeTok{end =} \DecValTok{25}\NormalTok{)}
+
+\FunctionTok{colnames}\NormalTok{(candies) }\OtherTok{\textless{}{-}}\NormalTok{ short\_col\_names}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Then changed age column to numeric and ensured that data provided
+  falls between 0 and 123.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#according to GOOGLE the longest living person was 122 so decided 123 will be the top value for age}
+
+\NormalTok{candies }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{age =} \FunctionTok{as.integer}\NormalTok{(age),}
+         \AttributeTok{age =} \FunctionTok{if\_else}\NormalTok{(age }\SpecialCharTok{\textgreater{}} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}=} \DecValTok{123}\NormalTok{, age , }\ConstantTok{NA}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The next step was very lengthy as involved tidying up country column.
+  It involved a mixture of using Regex and `hard coding'. There was lots
+  of variations of spelling USA and on many ocassions I also had to
+  refer back to state province column to confirm what country should be
+  entered.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# at first I changed everything to sentence case and removed any punctuation, }
+\CommentTok{\#  replaced countries that have a number as a value to \textquotesingle{}US\textquotesingle{} as the column with info about state/province suggested it was all USA}
+\CommentTok{\# then I replaced all potential entries that suggest UK as a country with \textquotesingle{}UK\textquotesingle{} and Canada with \textquotesingle{}Canada\textquotesingle{}.}
+
+\NormalTok{candies }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{country =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"[[:punct:]]"}\NormalTok{, }\StringTok{""}\NormalTok{, country),   }\CommentTok{\# remove any punctuation}
+       \AttributeTok{country =} \FunctionTok{str\_to\_sentence}\NormalTok{(country),}
+       \AttributeTok{country =} \FunctionTok{str\_replace\_all}\NormalTok{(country,}\StringTok{"[0{-}9]+"}\NormalTok{, }\StringTok{"US"}\NormalTok{), }\CommentTok{\# change numbers to US based on info from a \textquotesingle{}state\_province\textquotesingle{} column. }
+       \AttributeTok{country =} \FunctionTok{case\_when}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"United kingdom"} \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"United kindom"}  \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Uk"}             \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"England"}        \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Endland"}        \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Scotland"}       \SpecialCharTok{\textasciitilde{}} \StringTok{"The UK"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Ud"}             \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Unhinged states"}\SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Can"}            \SpecialCharTok{\textasciitilde{}} \StringTok{"Canada"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Canae"}          \SpecialCharTok{\textasciitilde{}} \StringTok{"Canada"}\NormalTok{,}
+\NormalTok{                           country }\SpecialCharTok{==} \StringTok{"Soviet canuckistan"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Canada"}\NormalTok{,}
+                           \ConstantTok{TRUE}                        \SpecialCharTok{\textasciitilde{}}\NormalTok{ country))}
+               
+\CommentTok{\# 10.3 tidy up countries that seem to be \textquotesingle{}USA\textquotesingle{}}
+
+\NormalTok{candies }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{country =} \FunctionTok{str\_replace}\NormalTok{(country, }\StringTok{"\^{}U[a{-}z ]+[a{-}z]+"}\NormalTok{, }\StringTok{"US"}\NormalTok{),}
+         \AttributeTok{country =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Us"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"The united states"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"The united states of america"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"The yoo ess of aaayyyyyy"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Pittsburgh"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"North carolina"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"New jersey"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"New york"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"I pretend to be from canada but i am really from the united states"}   \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"California"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Alaska"}  \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"America"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"I don\textquotesingle{}t know anymore"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"The best one  usa"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Trumpistan"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Narnia"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Ahemamerca"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"A"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"The best one  usa"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Murica"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,  }
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Murrika"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Merica"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Gods country"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"N america"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+\NormalTok{            country }\SpecialCharTok{==} \StringTok{"Subcanadian north america merica"} \SpecialCharTok{\textasciitilde{}} \StringTok{"US"}\NormalTok{,}
+            \ConstantTok{TRUE}     \SpecialCharTok{\textasciitilde{}}\NormalTok{ country}
+\NormalTok{))}
+\CommentTok{\# 10.4 observations that do not allow to identify a specific country are being changed to \textquotesingle{}NA\textquotesingle{}.}
+
+
+\NormalTok{candies }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{country =} \FunctionTok{case\_when}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"Atlantis"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Denial"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Fear and loathing"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Insanity lately"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"One of the best ones"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"See above"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Somewhere"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Subscribe to dmUSuzUS on youtube"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"The republic of cascadia"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{, }\CommentTok{\# could be either Canada or US}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Cascadia"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"There isnt one for old men"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"This one"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Earth"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"A tropical island south of the equator"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"I dont know anymore"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Not the usa or canada"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Eua"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Europe"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+\NormalTok{       country }\SpecialCharTok{==} \StringTok{"Neverland"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+       \ConstantTok{TRUE}     \SpecialCharTok{\textasciitilde{}}\NormalTok{ country}
+\NormalTok{   ))   }
+
+\CommentTok{\# 10.5 change all character \textquotesingle{}NA\textquotesingle{}s to logical}
+
+\NormalTok{candies }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{country =} \FunctionTok{case\_when}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"NA"} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA}\NormalTok{,}
+                             \ConstantTok{TRUE}     \SpecialCharTok{\textasciitilde{}}\NormalTok{ country))}
+\end{Highlighting}
+\end{Shaded}
+
+When I was unable to identify a single country I changed country field
+to NA. It is also worth mentioning that the data set from 2015 has not
+included the country field at all.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  I changed the format of a data set to longer by using pivot\_longer().
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# assigned all candy related part of df to columns\_candy}
+
+\NormalTok{columns\_candy }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(year, age, gender, country, going\_out))}
+
+\CommentTok{\# 11.2 changed the format to long and assigned it to an object called "candies\_long." }
+
+\NormalTok{candies\_long }\OtherTok{\textless{}{-}}\NormalTok{ candies }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{names}\NormalTok{(columns\_candy), }
+               \AttributeTok{names\_to =} \StringTok{"candie\_name"}\NormalTok{, }
+               \AttributeTok{values\_to =} \StringTok{"candies\_rating"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Finally all the cleaned data has been saved in the file called
+  candies\_long.csv.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# write a new csv into a clean data folder called \textquotesingle{}candies\_long.\textquotesingle{}}
+\NormalTok{here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/justy/OneDrive/Desktop/DE21/dirty_data/dirty_data_project_codeclan_justynarosiak/task4"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write\_csv}\NormalTok{(candies\_long, }\AttributeTok{file =}\NormalTok{ (}\FunctionTok{here}\NormalTok{(}\StringTok{"clean\_data/candies\_long.csv"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#\textbf{Analysis}
+
+In this part of the project I also used RStudio and the following
+libraries:
+
+\begin{itemize}
+\item
+  library(tidyverse)
+\item
+  library(here)
+\end{itemize}
+
+During analysis process I tried to answer the following questions:
+
+\textbf{1. What is the total number of candy ratings given across the
+three years.}
+
+There have been given 623 053 candy ratings over 3 years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{total\_ratings }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(candies\_rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(candies\_rating)) }\SpecialCharTok{\%\textgreater{}\%} 
+ \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+
+\NormalTok{total\_ratings}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##    count
+##    <int>
+## 1 623053
+\end{verbatim}
+
+\textbf{2. What was the average age of people who are going out trick or
+treating?}
+
+Average age for those who were going out to trick or treat was around
+35.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{going\_out }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(age, going\_out) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(going\_out }\SpecialCharTok{==} \StringTok{"Yes"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{going\_out\_avg =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{((age), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))}
+
+\NormalTok{going\_out}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   going_out_avg
+##           <dbl>
+## 1            35
+\end{verbatim}
+
+\textbf{3. What was the average age of people who are not going trick or
+treating?}
+
+Average age for those who were not going out to trick or treat was
+around 39.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{not\_going\_out }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(going\_out, age) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(going\_out }\SpecialCharTok{==} \StringTok{"No"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{going\_out\_avg =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{((age), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))}
+
+\NormalTok{not\_going\_out}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   going_out_avg
+##           <dbl>
+## 1            39
+\end{verbatim}
+
+\textbf{4. For each of `joy', `despair' and `meh', which candy bar
+received the most of these ratings?}
+
+The most `joy' ratings received `Kit-Kat bar'.
+
+The most `despair' ratings received `Chick o stick' bar.
+
+The most `meh' ratings received `100\_grand\_bar' bar.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{joy\_rating }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(candie\_name, candies\_rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candies\_rating }\SpecialCharTok{==} \StringTok{"JOY"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(count))}
+
+\NormalTok{despair\_rating }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(candie\_name, candies\_rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candies\_rating }\SpecialCharTok{==} \StringTok{"DESPAIR"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(count))}
+
+\NormalTok{meh\_rating }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(candie\_name, candies\_rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candies\_rating }\SpecialCharTok{==} \StringTok{"MEH"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(count))}
+  
+\NormalTok{joy\_rating}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 101 x 2
+##    candie_name               count
+##    <chr>                     <int>
+##  1 any_full_sized_candy_bar   7589
+##  2 reese_s_peanut_butter_cup  7369
+##  3 kit_kat                    7252
+##  4 snickers                   6991
+##  5 twix                       6990
+##  6 peanut_m_m_s               6456
+##  7 tolberone_something_or_ot  6176
+##  8 lindt_truffle              6174
+##  9 nestle_crunch              6117
+## 10 regular_m_ms               6101
+## # i 91 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{despair\_rating}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 101 x 2
+##    candie_name               count
+##    <chr>                     <int>
+##  1 gum_from_baseball_cards    7341
+##  2 dental_paraphenalia        7295
+##  3 candy_that_is_clearly_jus  7255
+##  4 anonymous_brown_globs      6730
+##  5 those_odd_marshmallow_cir  6408
+##  6 jolly_rancher_bad_flavor   6309
+##  7 pencils                    6231
+##  8 joy_joy_mit_iodine         5806
+##  9 black_jacks                5606
+## 10 senior_mints               5457
+## # i 91 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meh\_rating }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 88 x 2
+##    candie_name        count
+##    <chr>              <int>
+##  1 lollipops           1570
+##  2 hard_candy          1524
+##  3 bonkers_the_candy   1488
+##  4 x100_grand_bar      1307
+##  5 chiclets            1268
+##  6 hersheys_kisses     1245
+##  7 nown_laters         1235
+##  8 tic_tacs            1230
+##  9 laffy_taffy         1224
+## 10 licorice_not_black  1206
+## # i 78 more rows
+\end{verbatim}
+
+\textbf{DISCLAIMER}
+
+\emph{For the purpose of the analysis the following candies are
+considered candy bars:}
+
+\begin{itemize}
+\item
+  any\_full\_sized\_candy\_bar
+\item
+  x100\_grand\_bar,
+\item
+  reggie\_jackson\_bar,
+\item
+  hershey\_s\_milk\_chocolate,
+\item
+  mr\_goodbar,
+\item
+  caramellos,
+\item
+  chick\_o\_sticks\_we\_don\_t\_k,
+\item
+  coffee\_crisp,
+\item
+  three\_musketeers,
+\item
+  hersheys\_dark\_chocolate,
+\item
+  nestle\_crunch,
+\item
+  whatchamacallit\_bars,
+\item
+  milky\_way,
+\item
+  heath\_bar,
+\item
+  kinder\_happy\_hippo,
+\item
+  butterfinger,
+\item
+  kit\_kat,
+\item
+  snickers,
+\item
+  twix
+\item
+  tolberone\_something\_or\_ot
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# add \textquotesingle{}is\_candie\_bar\textquotesingle{} column with true and false so candie bars can be ewasily identified}
+
+\NormalTok{candies\_long }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{is\_candie\_bar =} \FunctionTok{if\_else}\NormalTok{(candie\_name }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"x100\_grand\_bar"}\NormalTok{, }\StringTok{"reggie\_jackson\_bar"}\NormalTok{, }\StringTok{"hershey\_s\_milk\_chocolate"}\NormalTok{, }\StringTok{"mr\_goodbar"}\NormalTok{, }\StringTok{"caramellos"}\NormalTok{, }\StringTok{"chick\_o\_sticks\_we\_don\_t\_k"}\NormalTok{, }\StringTok{"coffee\_crisp"}\NormalTok{, }\StringTok{"three\_musketeers"}\NormalTok{, }\StringTok{"hersheys\_dark\_chocol"}\NormalTok{, }\StringTok{"nestle\_crunch"}\NormalTok{, }\StringTok{"whatchamacallit\_bars"}\NormalTok{, }\StringTok{"milky\_way"}\NormalTok{, }\StringTok{"heath\_bar"}\NormalTok{, }\StringTok{"kinder\_happy\_hippo"}\NormalTok{, }\StringTok{"butterfinger"}\NormalTok{, }\StringTok{"kit\_kat"}\NormalTok{, }\StringTok{"snickers"}\NormalTok{, }\StringTok{"twix"}\NormalTok{, }\StringTok{"any\_full\_sized\_candy\_bar"}\NormalTok{, }\StringTok{"tolberone\_something\_or\_ot"}\NormalTok{), }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{), }\AttributeTok{.after =}\NormalTok{ candie\_name)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{5. How many people rated Starburst as despair?}
+
+There were 1990 people, who rated Starburst as ``despair''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{starburst\_despair }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(candies\_rating, candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candie\_name }\SpecialCharTok{==} \StringTok{"starburst"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candies\_rating }\SpecialCharTok{==} \StringTok{"DESPAIR"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{()}
+
+\NormalTok{starburst\_despair}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1  1990
+\end{verbatim}
+
+\textbf{For the next three questions, I was asked to count `despair' as
+-1, `joy' as +1, and 'meh 'as 0, so I assigned the new data set with
+numeric rating to candies\_numeric}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candies\_numeric }\OtherTok{\textless{}{-}}\NormalTok{ candies\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{candies\_rating\_num =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{  candies\_rating }\SpecialCharTok{==} \StringTok{"MEH"} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+\NormalTok{  candies\_rating }\SpecialCharTok{==} \StringTok{"DESPAIR"} \SpecialCharTok{\textasciitilde{}} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}
+\NormalTok{  candies\_rating }\SpecialCharTok{==} \StringTok{"JOY"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{))}
+
+\NormalTok{candies\_numeric}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 944,249 x 9
+##    year    age going_out gender country candie_name is_candie_bar candies_rating
+##    <chr> <int> <chr>     <chr>  <chr>   <chr>       <lgl>         <chr>         
+##  1 2015     35 No        <NA>   <NA>    butterfing~ TRUE          JOY           
+##  2 2015     35 No        <NA>   <NA>    x100_grand~ TRUE          <NA>          
+##  3 2015     35 No        <NA>   <NA>    anonymous_~ FALSE         DESPAIR       
+##  4 2015     35 No        <NA>   <NA>    any_full_s~ TRUE          JOY           
+##  5 2015     35 No        <NA>   <NA>    black_jacks FALSE         <NA>          
+##  6 2015     35 No        <NA>   <NA>    bonkers     FALSE         <NA>          
+##  7 2015     35 No        <NA>   <NA>    bottle_caps FALSE         <NA>          
+##  8 2015     35 No        <NA>   <NA>    brach_prod~ FALSE         DESPAIR       
+##  9 2015     35 No        <NA>   <NA>    bubble_gum  FALSE         DESPAIR       
+## 10 2015     35 No        <NA>   <NA>    cadbury_cr~ FALSE         DESPAIR       
+## # i 944,239 more rows
+## # i 1 more variable: candies_rating_num <dbl>
+\end{verbatim}
+
+\textbf{6. What was the most popular candy bar by this rating system for
+each gender in the data set ?}
+
+Females preferred `any\_full\_sized\_candy\_bar'.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{females\_preferred }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(gender }\SpecialCharTok{==} \StringTok{"Female"} \SpecialCharTok{\&}\NormalTok{ is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(gender, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n)) }
+  
+\NormalTok{females\_preferred }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar    882
+##  2 twix                        813
+##  3 kit_kat                     806
+##  4 tolberone_something_or_ot   776
+##  5 snickers                    768
+##  6 milky_way                   680
+##  7 butterfinger                648
+##  8 heath_bar                   611
+##  9 nestle_crunch               608
+## 10 three_musketeers            587
+## 11 caramellos                  553
+## 12 hershey_s_milk_chocolate    519
+## 13 mr_goodbar                  424
+## 14 x100_grand_bar              414
+## 15 whatchamacallit_bars        404
+## 16 kinder_happy_hippo          346
+## 17 coffee_crisp                289
+## 18 chick_o_sticks_we_don_t_k   153
+## 19 reggie_jackson_bar           74
+\end{verbatim}
+
+Males preferred `any\_full\_sized\_candy\_bar'.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{males\_preferred }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(gender }\SpecialCharTok{==} \StringTok{"Male"} \SpecialCharTok{\&}\NormalTok{ is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(gender, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n)) }
+
+
+\NormalTok{males\_preferred}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   1605
+##  2 kit_kat                    1487
+##  3 snickers                   1442
+##  4 twix                       1419
+##  5 tolberone_something_or_ot  1333
+##  6 nestle_crunch              1234
+##  7 butterfinger               1228
+##  8 milky_way                  1201
+##  9 three_musketeers           1090
+## 10 heath_bar                  1074
+## 11 x100_grand_bar              937
+## 12 caramellos                  931
+## 13 whatchamacallit_bars        929
+## 14 mr_goodbar                  916
+## 15 hershey_s_milk_chocolate    869
+## 16 coffee_crisp                465
+## 17 kinder_happy_hippo          430
+## 18 reggie_jackson_bar          347
+## 19 chick_o_sticks_we_don_t_k   298
+\end{verbatim}
+
+\textbf{7. What was the most popular candy bar in each year?}
+
+I have made an assumption that the bar that has received the most 1
+ratings was the most popular candy bar.
+
+I have checked every year separately and it looked like
+`any\_full\_sized\_candy\_bar' was preferred irrespective of a year.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2015}
+
+\NormalTok{popular\_2015 }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ year }\SpecialCharTok{==} \DecValTok{2015} \SpecialCharTok{\&}\NormalTok{candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(year, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{popular\_2015}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 16 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   4978
+##  2 kit_kat                    4840
+##  3 snickers                   4673
+##  4 twix                       4651
+##  5 nestle_crunch              4177
+##  6 butterfinger               4129
+##  7 milky_way                  4056
+##  8 tolberone_something_or_ot  3971
+##  9 three_musketeers           3780
+## 10 hershey_s_milk_chocolate   3551
+## 11 x100_grand_bar             3431
+## 12 heath_bar                  3308
+## 13 caramellos                 3277
+## 14 kinder_happy_hippo         1375
+## 15 chick_o_sticks_we_don_t_k   888
+## 16 reggie_jackson_bar          755
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2016}
+\NormalTok{popular\_2016 }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ year }\SpecialCharTok{==} \DecValTok{2016} \SpecialCharTok{\&}\NormalTok{candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(year, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{popular\_2016 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   1052
+##  2 kit_kat                     965
+##  3 twix                        926
+##  4 snickers                    919
+##  5 tolberone_something_or_ot   885
+##  6 milky_way                   789
+##  7 butterfinger                787
+##  8 nestle_crunch               752
+##  9 three_musketeers            702
+## 10 heath_bar                   691
+## 11 caramellos                  600
+## 12 hershey_s_milk_chocolate    563
+## 13 whatchamacallit_bars        548
+## 14 x100_grand_bar              548
+## 15 mr_goodbar                  542
+## 16 coffee_crisp                324
+## 17 kinder_happy_hippo          302
+## 18 reggie_jackson_bar          190
+## 19 chick_o_sticks_we_don_t_k   177
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2017}
+
+\NormalTok{popular\_2017 }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ year }\SpecialCharTok{==} \DecValTok{2017} \SpecialCharTok{\&}\NormalTok{candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(year, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+
+\NormalTok{popular\_2015}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 16 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   4978
+##  2 kit_kat                    4840
+##  3 snickers                   4673
+##  4 twix                       4651
+##  5 nestle_crunch              4177
+##  6 butterfinger               4129
+##  7 milky_way                  4056
+##  8 tolberone_something_or_ot  3971
+##  9 three_musketeers           3780
+## 10 hershey_s_milk_chocolate   3551
+## 11 x100_grand_bar             3431
+## 12 heath_bar                  3308
+## 13 caramellos                 3277
+## 14 kinder_happy_hippo         1375
+## 15 chick_o_sticks_we_don_t_k   888
+## 16 reggie_jackson_bar          755
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{popular\_2016}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   1052
+##  2 kit_kat                     965
+##  3 twix                        926
+##  4 snickers                    919
+##  5 tolberone_something_or_ot   885
+##  6 milky_way                   789
+##  7 butterfinger                787
+##  8 nestle_crunch               752
+##  9 three_musketeers            702
+## 10 heath_bar                   691
+## 11 caramellos                  600
+## 12 hershey_s_milk_chocolate    563
+## 13 whatchamacallit_bars        548
+## 14 x100_grand_bar              548
+## 15 mr_goodbar                  542
+## 16 coffee_crisp                324
+## 17 kinder_happy_hippo          302
+## 18 reggie_jackson_bar          190
+## 19 chick_o_sticks_we_don_t_k   177
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{popular\_2017}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   1559
+##  2 kit_kat                    1447
+##  3 twix                       1413
+##  4 snickers                   1399
+##  5 tolberone_something_or_ot  1320
+##  6 nestle_crunch              1188
+##  7 milky_way                  1185
+##  8 butterfinger               1177
+##  9 heath_bar                  1069
+## 10 three_musketeers           1058
+## 11 caramellos                  953
+## 12 hershey_s_milk_chocolate    896
+## 13 x100_grand_bar              873
+## 14 mr_goodbar                  857
+## 15 whatchamacallit_bars        840
+## 16 kinder_happy_hippo          503
+## 17 coffee_crisp                474
+## 18 chick_o_sticks_we_don_t_k   299
+## 19 reggie_jackson_bar          254
+\end{verbatim}
+
+\textbf{8. What was the most popular candy bar by this rating for people
+in US, Canada, UK, and all other countries?}
+
+I have checked the most popular candy bar individually by country.
+
+The most popular candy bar in US, Canada and US was the same -
+`any\_full\_sized\_candy\_bar'.
+
+`Any\_full\_sized\_candy\_bar' was also preferred in countries other
+than Us, Canada and UK.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# US}
+\NormalTok{us\_popular }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ country }\SpecialCharTok{==} \StringTok{"US"} \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(country, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{us\_popular}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   2206
+##  2 kit_kat                    2048
+##  3 twix                       2020
+##  4 snickers                   1981
+##  5 tolberone_something_or_ot  1850
+##  6 butterfinger               1688
+##  7 milky_way                  1687
+##  8 nestle_crunch              1649
+##  9 heath_bar                  1613
+## 10 three_musketeers           1510
+## 11 caramellos                 1365
+## 12 x100_grand_bar             1308
+## 13 whatchamacallit_bars       1266
+## 14 mr_goodbar                 1235
+## 15 hershey_s_milk_chocolate   1217
+## 16 kinder_happy_hippo          676
+## 17 coffee_crisp                518
+## 18 chick_o_sticks_we_don_t_k   441
+## 19 reggie_jackson_bar          386
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# UK}
+\NormalTok{uk\_popular }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ country }\SpecialCharTok{==} \StringTok{"The uk"} \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(country, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{uk\_popular}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 0 x 2
+## # i 2 variables: candie_name <chr>, n <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Canada}
+
+\NormalTok{canada\_popular }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} \SpecialCharTok{\&}\NormalTok{ country }\SpecialCharTok{==} \StringTok{"Canada"} \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(country, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{canada\_popular}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar    256
+##  2 kit_kat                     235
+##  3 coffee_crisp                229
+##  4 tolberone_something_or_ot   229
+##  5 snickers                    212
+##  6 twix                        198
+##  7 nestle_crunch               191
+##  8 hershey_s_milk_chocolate    178
+##  9 milky_way                   174
+## 10 three_musketeers            170
+## 11 butterfinger                169
+## 12 caramellos                  104
+## 13 mr_goodbar                   97
+## 14 kinder_happy_hippo           67
+## 15 heath_bar                    66
+## 16 whatchamacallit_bars         59
+## 17 x100_grand_bar               51
+## 18 reggie_jackson_bar           31
+## 19 chick_o_sticks_we_don_t_k    13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Other countries}
+
+\NormalTok{other\_popular }\OtherTok{\textless{}{-}}\NormalTok{ candies\_numeric }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{country }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Canada"}\NormalTok{, }\StringTok{"US"}\NormalTok{, }\StringTok{"The uk"}\NormalTok{, }\StringTok{"NA"}\NormalTok{) }
+         \SpecialCharTok{\&}\NormalTok{ is\_candie\_bar }\SpecialCharTok{==} \ConstantTok{TRUE} 
+         \SpecialCharTok{\&}\NormalTok{ candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(country, candies\_rating\_num, candie\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(candies\_rating\_num }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(candie\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(candies\_rating\_num)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{other\_popular}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 19 x 2
+##    candie_name                   n
+##    <chr>                     <dbl>
+##  1 any_full_sized_candy_bar   5127
+##  2 kit_kat                    4969
+##  3 snickers                   4798
+##  4 twix                       4772
+##  5 nestle_crunch              4277
+##  6 butterfinger               4236
+##  7 milky_way                  4169
+##  8 tolberone_something_or_ot  4097
+##  9 three_musketeers           3860
+## 10 hershey_s_milk_chocolate   3615
+## 11 x100_grand_bar             3493
+## 12 heath_bar                  3389
+## 13 caramellos                 3361
+## 14 kinder_happy_hippo         1437
+## 15 chick_o_sticks_we_don_t_k   910
+## 16 reggie_jackson_bar          782
+## 17 mr_goodbar                   67
+## 18 whatchamacallit_bars         63
+## 19 coffee_crisp                 51
+\end{verbatim}
+
+\end{document}

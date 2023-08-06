@@ -74,7 +74,7 @@ candy_2017 <- clean_names(candy_2017)
 
 # 3.1
 candy_2015 <- candy_2015 %>% 
-  separate(timestamp,c("year", "the_rest"), sep = "-" )
+  separate(timestamp, c("year", "the_rest"), sep = "-" )
 
 # 3.2
 candy_2016 <- candy_2016 %>% 
@@ -131,11 +131,11 @@ candy_2015 <- candy_2015 %>%
 
 # 5.2
 candy_2016 <- candy_2016 %>% 
-  select(!any_of(candy_2016))
+  select(!any_of(drop_2016))
 
 # 5.3
 candy_2017 <- candy_2017 %>% 
-  select(!any_of(candy_2017))
+  select(!any_of(drop_2017))
 
 
 
